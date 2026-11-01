@@ -28,6 +28,7 @@ def main():
                         attn_implementation="sdpa", generation_mode="beam", k=2,
                         max_new_tokens=1024)
     parser.add_argument("--dataset", default="rmanluo/RoG-webqsp")
+    parser.add_argument("--adapter", type=Path)
     parser.add_argument("--model-revision", default="ec16a9e8c15e5792629e9405a42cea1562076b4e")
     parser.add_argument("--dataset-revision", default="c0632533135a06f8c5d536b420deec5fcb5c58f3")
     parser.add_argument("--split", default="test", choices=["test", "validation"])
@@ -79,6 +80,10 @@ def main():
                                        ignore_patterns=["training_args.bin", "*.md"])
     model = GraphConstrainedDecodingModel(args)
     model.prepare_for_inference()
+    if args.adapter:
+        from peft import PeftModel
+        model.model = PeftModel.from_pretrained(model.model, str(args.adapter)).merge_and_unload()
+        model.model.eval()
     if model.model.device.type != "cuda":
         raise RuntimeError("Model did not load on CUDA")
     builder = PathGenerationWithAnswerPromptBuilder(model.tokenizer, "zero-shot",

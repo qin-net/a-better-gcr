@@ -48,3 +48,14 @@ uv pip install --python .venv/Scripts/python.exe -r graph-constrained-reasoning/
 `candidate_analysis.json` 的 gold 终点指标采用归一化后的完全相等，且只统计通过路径核对的候选。它只用于估计已有 beam 中可供排序挽回的空间，不是排序器的实际结果。即使某条路径终点正确，也不保证中间关系符合问题语义；保留所有 beam 的系统也不会仅因重排就提高候选覆盖。
 
 实测结果与完成状态见 `gcr-lab/experiments/CUDA_FINDINGS.md`。
+
+## 单卡 LoRA 继续训练
+
+```powershell
+.venv/Scripts/python.exe graph-constrained-reasoning/workflow/train_cuda_lora.py --output graph-constrained-reasoning/training_runs/webqsp_lora_v1
+.venv/Scripts/python.exe graph-constrained-reasoning/workflow/cuda_baseline.py --adapter graph-constrained-reasoning/training_runs/webqsp_lora_v1/adapter --limit 100 --output gcr-lab/experiments/cuda_results/webqsp_100_lora_v1
+```
+
+这是在官方已微调的 0.5B 权重上继续训练，并非从 Qwen 基座复现官方完整训练。默认完整 WebQSP train、每题一条确定性最短非空路径、1 epoch、LoRA r=8/alpha=16、q/v 投影、batch=2、梯度累积=8、学习率 2e-5、bf16、最大 512 tokens。保留原始有向子图，不补边。过长序列整条跳过，用户提示与 padding 的 labels 为 -100。验证集取独立 validation split 前 100 题，在训练前后分别计算 loss；测试集不参与训练、调参或选择权重。配置参考 [PEFT 0.12 LoRA 文档](https://huggingface.co/docs/peft/v0.12.0/en/package_reference/lora)。
+
+训练目录保存实际样本 ID、过滤计数、训练配置、loss 日志、资源统计以及可加载的 adapter。只保存最终 adapter，不保存完整基座或中途 optimizer checkpoint；中断后需使用新目录重新运行。
