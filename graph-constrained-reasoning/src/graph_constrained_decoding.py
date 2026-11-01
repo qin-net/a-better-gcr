@@ -10,6 +10,7 @@ class GraphConstrainedDecoding:
         self.all_tokens = list(range(len(tokenizer)))
         self.constrained_flag = enable_constrained_by_default
         self.L_input = None
+        self.empty_prefix_fallbacks = 0
 
     def check_constrained_flag(self, sent: torch.Tensor):
         # Check start
@@ -42,5 +43,6 @@ class GraphConstrainedDecoding:
         if constrained_flag:
             allow_tokens = self.trie.get(sent.tolist()[L_input:])
             if len(allow_tokens) == 0:
+                self.empty_prefix_fallbacks += 1
                 return self.all_tokens
         return allow_tokens

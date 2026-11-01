@@ -29,6 +29,8 @@ def main():
                         max_new_tokens=1024)
     parser.add_argument("--dataset", default="rmanluo/RoG-webqsp")
     parser.add_argument("--adapter", type=Path)
+    parser.add_argument("--record-token-trace", action="store_true")
+    parser.add_argument("--prefill-path", action="store_true", help="Prefill the path header and opening marker")
     parser.add_argument("--model-revision", default="ec16a9e8c15e5792629e9405a42cea1562076b4e")
     parser.add_argument("--dataset-revision", default="c0632533135a06f8c5d536b420deec5fcb5c58f3")
     parser.add_argument("--split", default="test", choices=["test", "validation"])
@@ -99,6 +101,8 @@ def main():
     with (args.output / "predictions.jsonl").open("w", encoding="utf-8") as out:
         for i, sample in enumerate(dataset):
             result = prediction(sample, [], builder, model)
+            if result is not None and args.record_token_trace:
+                result['generation_details'] = model.last_generation_details
             if result is None:
                 # Keep failures in the metric denominator instead of silently dropping them.
                 failures.append(sample["id"])

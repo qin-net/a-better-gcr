@@ -6,6 +6,12 @@ class GraphConstrainedDecodingModel(HfCausalModel):
         super().__init__(args)
     
     def generate_sentence(self, llm_input, trie, start_token_ids = None, end_token_ids = None, enable_constrained_by_default = True):
+        prefill = bool(getattr(self.args, 'prefill_path', False))
+        if prefill:
+            if start_token_ids is None or end_token_ids is None:
+                raise ValueError('Path prefill requires dedicated path marker tokens')
+            llm_input += '# Reasoning Path:\n<PATH>'
+        response_prefix = '# Reasoning Path:\n' if prefill else ''
         inputs = self.tokenizer(llm_input, return_tensors="pt", add_special_tokens=False)
         input_ids = inputs.input_ids.to(self.model.device)
         attention_mask = inputs.attention_mask.to(self.model.device)
@@ -23,10 +29,16 @@ class GraphConstrainedDecodingModel(HfCausalModel):
             print(e)
             return None
         response = []
+        self.last_generation_details = {
+            'prompt_suffix': '# Reasoning Path:\n<PATH>' if prefill else '',
+            'empty_prefix_fallbacks': gcr.empty_prefix_fallbacks,
+            'sequences': [('# Reasoning Path:\n<PATH>' if prefill else '') + self.tokenizer.decode(r[input_ids.shape[1]:], skip_special_tokens=False)
+                          for r in res.sequences],
+        }
         if len(res.sequences) == 1:
-            return self.tokenizer.decode(res.sequences[0][input_ids.shape[1]:],skip_special_tokens=True)
+            return response_prefix + self.tokenizer.decode(res.sequences[0][input_ids.shape[1]:],skip_special_tokens=True)
         for r in res.sequences:
-            response.append(self.tokenizer.decode(r[input_ids.shape[1]:], 
+            response.append(response_prefix + self.tokenizer.decode(r[input_ids.shape[1]:],
           skip_special_tokens=True))
         return response
         

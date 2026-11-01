@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import torch
 from datasets import Dataset, load_dataset
 from huggingface_hub import HfApi, hf_hub_download
-from peft import LoraConfig, get_peft_model
+from peft import LoraConfig, get_peft_model, PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments, set_seed
 from src.utils.graph_utils import build_graph, get_truth_paths
 from src.utils.utils import path_to_string
@@ -40,11 +40,16 @@ def main():
     p.add_argument('--epochs', type=float, default=1)
     p.add_argument('--max-length', type=int, default=512)
     p.add_argument('--validation-limit', type=int, default=100)
+    p.add_argument('--adapter', type=Path, help='Continue saved adapter weights with a fresh optimizer')
+    p.add_argument('--learning-rate', type=float, default=2e-5)
+    p.add_argument('--gradient-accumulation', type=int, default=8)
+    p.add_argument('--select-best', action='store_true', help='Select epoch checkpoint using validation loss only')
     args = p.parse_args()
     if not torch.cuda.is_available() or not torch.cuda.is_bf16_supported():
         raise RuntimeError('A CUDA GPU with bf16 support is required')
-    if args.epochs <= 0 or args.validation_limit < 1:
-        p.error('epochs and validation-limit must be positive')
+    if (args.epochs <= 0 or args.validation_limit < 1 or args.max_length < 1
+            or args.gradient_accumulation < 1 or args.learning_rate <= 0):
+        p.error('epochs, lengths, learning-rate and gradient-accumulation must be positive')
     args.output.mkdir(parents=True, exist_ok=True)
     if any(args.output.iterdir()):
         raise FileExistsError('Use a fresh output directory')
@@ -87,8 +92,11 @@ def main():
     assert not set(ids['train']) & set(ids['validation'])
     model = AutoModelForCausalLM.from_pretrained(MODEL, revision=MODEL_REV,
                 torch_dtype=torch.bfloat16, attn_implementation='sdpa').cuda()
-    model = get_peft_model(model, LoraConfig(r=8, lora_alpha=16, lora_dropout=0.05,
-                target_modules=['q_proj', 'v_proj'], bias='none', task_type='CAUSAL_LM'))
+    if args.adapter:
+        model = PeftModel.from_pretrained(model, str(args.adapter), is_trainable=True)
+    else:
+        model = get_peft_model(model, LoraConfig(r=8, lora_alpha=16, lora_dropout=0.05,
+                    target_modules=['q_proj', 'v_proj'], bias='none', task_type='CAUSAL_LM'))
     model.config.use_cache = False
     def collate(rows):
         width = max(len(row['input_ids']) for row in rows)
@@ -96,9 +104,12 @@ def main():
                 for key, pad in [('input_ids', tokenizer.pad_token_id), ('attention_mask', 0), ('labels', -100)]}
     cfg = TrainingArguments(output_dir=str(args.output / 'trainer'), num_train_epochs=args.epochs,
                 per_device_train_batch_size=2, per_device_eval_batch_size=2,
-                gradient_accumulation_steps=8, learning_rate=2e-5, warmup_ratio=0.03,
-                lr_scheduler_type='cosine', bf16=True, report_to='none', save_strategy='no',
-                logging_steps=10, dataloader_num_workers=0, seed=42, disable_tqdm=True)
+                gradient_accumulation_steps=args.gradient_accumulation, learning_rate=args.learning_rate, warmup_ratio=0.03,
+                lr_scheduler_type='cosine', bf16=True, report_to='none', save_strategy='epoch' if args.select_best else 'no',
+                logging_steps=50, dataloader_num_workers=0, seed=42, disable_tqdm=True,
+                eval_strategy='epoch' if args.select_best else 'no',
+                load_best_model_at_end=args.select_best, metric_for_best_model='eval_loss',
+                greater_is_better=False, save_total_limit=1)
     trainer = Trainer(model=model, args=cfg, train_dataset=train, eval_dataset=validation, data_collator=collate)
     manifest = dict(status='running', model=MODEL, model_revision=MODEL_REV, dataset_revision=DATA_REV,
                     preprocessing=dict(max_length=args.max_length, validation_limit=args.validation_limit,
@@ -106,6 +117,7 @@ def main():
                     data=stats, sample_ids=ids, training_args=cfg.to_dict(),
                     trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),
                     gpu=torch.cuda.get_device_name(), torch=torch.__version__)
+    manifest['continuation_adapter'] = str(args.adapter) if args.adapter else None
     def save():
         (args.output / 'training_manifest.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     save()
@@ -116,6 +128,8 @@ def main():
     manifest['training_seconds'] = time.perf_counter() - started
     manifest['train_metrics'] = result.metrics
     manifest['after'] = trainer.evaluate()
+    manifest['best_checkpoint'] = trainer.state.best_model_checkpoint
+    manifest['best_validation_loss'] = trainer.state.best_metric
     manifest['peak_allocated_bytes'] = torch.cuda.max_memory_allocated()
     model.peft_config['default'].base_model_name_or_path = MODEL
     model.peft_config['default'].revision = MODEL_REV

@@ -58,4 +58,16 @@ uv pip install --python .venv/Scripts/python.exe -r graph-constrained-reasoning/
 
 这是在官方已微调的 0.5B 权重上继续训练，并非从 Qwen 基座复现官方完整训练。默认完整 WebQSP train、每题一条确定性最短非空路径、1 epoch、LoRA r=8/alpha=16、q/v 投影、batch=2、梯度累积=8、学习率 2e-5、bf16、最大 512 tokens。保留原始有向子图，不补边。过长序列整条跳过，用户提示与 padding 的 labels 为 -100。验证集取独立 validation split 前 100 题，在训练前后分别计算 loss；测试集不参与训练、调参或选择权重。配置参考 [PEFT 0.12 LoRA 文档](https://huggingface.co/docs/peft/v0.12.0/en/package_reference/lora)。
 
-训练目录保存实际样本 ID、过滤计数、训练配置、loss 日志、资源统计以及可加载的 adapter。只保存最终 adapter，不保存完整基座或中途 optimizer checkpoint；中断后需使用新目录重新运行。
+训练目录保存实际样本 ID、过滤计数、训练配置、loss 日志、资源统计以及可加载的 adapter。默认只保存最终 adapter，不保存完整基座或中途 optimizer checkpoint；中断后需使用新目录重新运行。
+
+从 v1 继续训练并按完整验证集 loss 选择 epoch checkpoint：
+
+```powershell
+.venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/train_cuda_lora.py --adapter graph-constrained-reasoning/training_runs/webqsp_lora_v1/adapter --epochs 2 --learning-rate 1e-5 --gradient-accumulation 2 --validation-limit 246 --select-best --output graph-constrained-reasoning/training_runs/webqsp_lora_v2
+```
+
+继续加载的是 adapter 权重，优化器与学习率调度重新初始化。`--select-best` 在每个 epoch 评估并保存 checkpoint，最终重新加载验证 loss 最低的权重，再导出到 `adapter/`。中间 trainer checkpoint 留在本机并由 Git 忽略，最终 adapter 和运行记录提交。梯度累积设为 2，让 2,708 条训练序列对应的 1,354 个 microbatch 可以整除。
+
+评测时可加 `--record-token-trace`，在逐题输出中保留包含特殊 token 的原始字符串及整次 beam 搜索的空前缀回退计数。计数不是单条输出的回退次数；该诊断不改变原始解码行为。
+
+`--prefill-path` 则显式改变生成条件：在 assistant 输入后预填 `# Reasoning Path:\n<PATH>`，从第一个生成的路径 token 开始进入 trie；返回文本会补回路径标题。只适用于具有专用 PATH token 的模型，默认关闭。它防止开头缺失/写错 PATH 标记，不移除原有空前缀回退，因此仍应检查 `path_audit`，其指标也应单独报告。
