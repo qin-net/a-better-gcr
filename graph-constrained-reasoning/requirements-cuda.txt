@@ -1,0 +1,16 @@
+# Install torch separately from https://download.pytorch.org/whl/cu121.
+# These versions preserve the original Transformers beam-search implementation.
+torch==2.5.1+cu121
+transformers==4.44.2
+datasets==2.21.0
+accelerate==0.34.2
+peft==0.12.0
+marisa-trie==1.2.1
+python-dotenv==1.0.1
+scikit-learn==1.5.2
+openai==1.51.2
+tiktoken==0.8.0
+numpy==1.26.4
+pyarrow==17.0.0
+pandas==2.2.3
+httpx==0.27.2

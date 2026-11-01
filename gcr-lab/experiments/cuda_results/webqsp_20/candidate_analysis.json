@@ -1,0 +1,18 @@
+{
+  "counts": {
+    "samples": 20,
+    "top1_answer_hit": 12,
+    "any_beam_answer_hit": 13,
+    "top1_gold_endpoint": 12,
+    "any_beam_gold_endpoint": 13,
+    "gold_endpoint_recoverable_by_reranking": 1
+  },
+  "rates": {
+    "top1_answer_hit": 0.6,
+    "any_beam_answer_hit": 0.65,
+    "top1_gold_endpoint": 0.6,
+    "any_beam_gold_endpoint": 0.65,
+    "gold_endpoint_recoverable_by_reranking": 0.05
+  },
+  "note": "Gold-endpoint oracle is an evaluation upper bound, not a learned ranker or semantic path-quality label."
+}

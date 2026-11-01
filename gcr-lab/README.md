@@ -25,6 +25,8 @@ open out/lab.html
 
 只需要 Python 3.9+，无第三方依赖。
 
+真实 GPU 模型实验另见 [`../graph-constrained-reasoning/CUDA_RUNBOOK.md`](../graph-constrained-reasoning/CUDA_RUNBOOK.md)。该入口复用官方约束解码流程，记录模型与数据版本、逐题输出、耗时、显存和路径核对结果。
+
 页面支持 URL 参数定位：`?q=0&mode=constrained&step=6&theme=light`。
 
 ## 结果
