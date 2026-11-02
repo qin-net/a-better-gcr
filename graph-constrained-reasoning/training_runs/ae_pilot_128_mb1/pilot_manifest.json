@@ -1,0 +1,237 @@
+{
+  "status": "complete",
+  "fixed_updates": 128,
+  "variants": {
+    "A": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/A.jsonl.gz",
+        "--max-steps",
+        "128",
+        "--batch-size",
+        "1",
+        "--gradient-accumulation",
+        "16",
+        "--gradient-checkpointing",
+        "--validation-limit",
+        "246",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_pilot_128_mb1\\A"
+      ],
+      "status": "complete",
+      "before": 0.3258468806743622,
+      "after": 0.32119667530059814,
+      "data": {
+        "train": {
+          "input_questions": 16102,
+          "training_sequences": 16102,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\A.jsonl.gz",
+          "dropped_seed_overlap": 8548,
+          "kept_test_seeds": false,
+          "sha256": "402ba8e38000f5f79039d148a879c1f957357fac95b1c79474ef3911d71ee104"
+        },
+        "validation": {
+          "input_questions": 246,
+          "training_sequences": 234,
+          "skipped": {
+            "no_path": 12,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 807.1957958999992
+    },
+    "B": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/B.jsonl.gz",
+        "--max-steps",
+        "128",
+        "--batch-size",
+        "1",
+        "--gradient-accumulation",
+        "16",
+        "--gradient-checkpointing",
+        "--validation-limit",
+        "246",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_pilot_128_mb1\\B"
+      ],
+      "status": "complete",
+      "before": 0.3258468806743622,
+      "after": 0.32124823331832886,
+      "data": {
+        "train": {
+          "input_questions": 16103,
+          "training_sequences": 16103,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\B.jsonl.gz",
+          "dropped_seed_overlap": 8548,
+          "kept_test_seeds": false,
+          "sha256": "97a9717cb45ea042635ca6263b8cfd3decbb07a7fce66f88aaad44604ad3751c"
+        },
+        "validation": {
+          "input_questions": 246,
+          "training_sequences": 234,
+          "skipped": {
+            "no_path": 12,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 886.3223603999941
+    },
+    "C": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/C.jsonl.gz",
+        "--max-steps",
+        "128",
+        "--batch-size",
+        "1",
+        "--gradient-accumulation",
+        "16",
+        "--gradient-checkpointing",
+        "--validation-limit",
+        "246",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_pilot_128_mb1\\C"
+      ],
+      "status": "complete",
+      "before": 0.3258468806743622,
+      "after": 0.32028764486312866,
+      "data": {
+        "train": {
+          "input_questions": 16103,
+          "training_sequences": 16103,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\C.jsonl.gz",
+          "dropped_seed_overlap": 8548,
+          "kept_test_seeds": false,
+          "sha256": "dd10edcfe7a0c1dbf2751fdaeb535e046aca7c4b265a7eb926d6302430ff6b5b"
+        },
+        "validation": {
+          "input_questions": 246,
+          "training_sequences": 234,
+          "skipped": {
+            "no_path": 12,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 832.1699327000097
+    },
+    "D": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/D.jsonl.gz",
+        "--max-steps",
+        "128",
+        "--batch-size",
+        "1",
+        "--gradient-accumulation",
+        "16",
+        "--gradient-checkpointing",
+        "--validation-limit",
+        "246",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_pilot_128_mb1\\D"
+      ],
+      "status": "complete",
+      "before": 0.3258468806743622,
+      "after": 0.3207346498966217,
+      "data": {
+        "train": {
+          "input_questions": 16656,
+          "training_sequences": 16656,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\D.jsonl.gz",
+          "dropped_seed_overlap": 8827,
+          "kept_test_seeds": false,
+          "sha256": "ef538cfe5dc29234494a8cd47902d547a4db8d5d0fa8789b4fe063f46a164fbd"
+        },
+        "validation": {
+          "input_questions": 246,
+          "training_sequences": 234,
+          "skipped": {
+            "no_path": 12,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 875.4089013000048
+    },
+    "E": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/E.jsonl.gz",
+        "--max-steps",
+        "128",
+        "--batch-size",
+        "1",
+        "--gradient-accumulation",
+        "16",
+        "--gradient-checkpointing",
+        "--validation-limit",
+        "246",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_pilot_128_mb1\\E"
+      ],
+      "status": "complete",
+      "before": 0.3258468806743622,
+      "after": 0.3205784857273102,
+      "data": {
+        "train": {
+          "input_questions": 18016,
+          "training_sequences": 18016,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\E.jsonl.gz",
+          "dropped_seed_overlap": 9444,
+          "kept_test_seeds": false,
+          "sha256": "fbc44a7f94d91884ac241f19b5bde03c41aa481ff73e61f17a8129a5f2beff95"
+        },
+        "validation": {
+          "input_questions": 246,
+          "training_sequences": 234,
+          "skipped": {
+            "no_path": 12,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 869.1889655000123
+    }
+  },
+  "interpretation": "Pilot with equal updates, not complete epochs; validation loss is the shared WebQSP directed-path yardstick."
+}

@@ -1,0 +1,24 @@
+max_steps is given, it will override any value given in num_train_epochs
+{'eval_loss': 0.3258468806743622, 'eval_model_preparation_time': 0.0173, 'eval_runtime': 27.0589, 'eval_samples_per_second': 8.648, 'eval_steps_per_second': 8.648}
+{'loss': 0.6029, 'grad_norm': 1.8159364461898804, 'learning_rate': 1.3943558551133186e-05, 'epoch': 0.04968018381668012}
+{'loss': 0.5303, 'grad_norm': 1.7277253866195679, 'learning_rate': 2.4124187730720903e-06, 'epoch': 0.09936036763336024}
+{'train_runtime': 885.9738, 'train_samples_per_second': 2.312, 'train_steps_per_second': 0.144, 'train_loss': 0.5543137043714523, 'epoch': 0.1271812705707011}
+{'eval_loss': 0.32124823331832886, 'eval_model_preparation_time': 0.0173, 'eval_runtime': 20.5908, 'eval_samples_per_second': 11.364, 'eval_steps_per_second': 11.364, 'epoch': 0.1271812705707011}
+{
+  "before": {
+    "eval_loss": 0.3258468806743622,
+    "eval_model_preparation_time": 0.0173,
+    "eval_runtime": 27.0589,
+    "eval_samples_per_second": 8.648,
+    "eval_steps_per_second": 8.648
+  },
+  "after": {
+    "eval_loss": 0.32124823331832886,
+    "eval_model_preparation_time": 0.0173,
+    "eval_runtime": 20.5908,
+    "eval_samples_per_second": 11.364,
+    "eval_steps_per_second": 11.364,
+    "epoch": 0.1271812705707011
+  },
+  "training_seconds": 886.3223603999941
+}

@@ -60,6 +60,10 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--epochs', type=float, default=1)
+    p.add_argument('--max-steps', type=int, default=-1,
+                   help='Positive value overrides epochs for equal-budget pilot comparisons')
+    p.add_argument('--gradient-checkpointing', action='store_true')
+    p.add_argument('--batch-size', type=int, default=2)
     p.add_argument('--max-length', type=int, default=512)
     p.add_argument('--validation-limit', type=int, default=100)
     p.add_argument('--adapter', type=Path, help='Continue saved adapter weights with a fresh optimizer')
@@ -75,10 +79,12 @@ def main():
                    help='With --train-data, keep CWQ questions built from WebQSP test questions '
                         '(the official GCR mix); dropped by default')
     args = p.parse_args()
+    if args.max_steps != -1 and args.max_steps < 1:
+        p.error('max-steps must be -1 (epochs) or positive')
     if not torch.cuda.is_available() or not torch.cuda.is_bf16_supported():
         raise RuntimeError('A CUDA GPU with bf16 support is required')
     if (args.epochs <= 0 or args.validation_limit < 1 or args.max_length < 1
-            or args.gradient_accumulation < 1 or args.learning_rate <= 0 or args.paths_per_question < 1):
+            or args.gradient_accumulation < 1 or args.batch_size < 1 or args.learning_rate <= 0 or args.paths_per_question < 1):
         p.error('epochs, lengths, learning-rate, gradient-accumulation and paths-per-question must be positive')
     args.output.mkdir(parents=True, exist_ok=True)
     if any(args.output.iterdir()):
@@ -155,7 +161,10 @@ def main():
         return {key: torch.tensor([row[key] + [pad] * (width - len(row[key])) for row in rows])
                 for key, pad in [('input_ids', tokenizer.pad_token_id), ('attention_mask', 0), ('labels', -100)]}
     cfg = TrainingArguments(output_dir=str(args.output / 'trainer'), num_train_epochs=args.epochs,
-                per_device_train_batch_size=2, per_device_eval_batch_size=2,
+                max_steps=args.max_steps,
+                gradient_checkpointing=args.gradient_checkpointing,
+                gradient_checkpointing_kwargs={'use_reentrant': False},
+                per_device_train_batch_size=args.batch_size, per_device_eval_batch_size=1,
                 gradient_accumulation_steps=args.gradient_accumulation, learning_rate=args.learning_rate, warmup_ratio=0.03,
                 lr_scheduler_type='cosine', bf16=True, report_to='none', save_strategy='epoch' if args.select_best else 'no',
                 logging_steps=50, dataloader_num_workers=0, seed=42, disable_tqdm=True,
