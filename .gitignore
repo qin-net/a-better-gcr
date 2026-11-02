@@ -3,3 +3,5 @@ __pycache__/
 .pytest_cache/
 .env
 graph-constrained-reasoning/training_runs/*/trainer/
+gcr-lab/train_variants/hf/
+gcr-lab/train_variants/runs/

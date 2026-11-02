@@ -2,7 +2,8 @@
 import re
 
 
-def audit_prediction(text, graph, starts, hops):
+def audit_prediction(text, graph, starts, hops, reverse=False):
+    """With reverse=True a step (u, r, v) is also grounded by the triple (v, r, u)."""
     match = re.search(r"# Reasoning Path:\s*(.*?)\s*# Answer:", text, re.DOTALL)
     if match is None:
         return {"valid": False, "reason": "missing_path_or_answer_section"}
@@ -16,6 +17,7 @@ def audit_prediction(text, graph, starts, hops):
         return {"valid": False, "reason": "exceeds_hop_limit", "path": path}
     edges = {tuple(x.strip() for x in edge) for edge in graph}
     triples = [tuple(parts[i:i + 3]) for i in range(0, len(parts) - 2, 2)]
-    missing = [edge for edge in triples if edge not in edges]
+    missing = [edge for edge in triples if edge not in edges
+               and not (reverse and edge[::-1] in edges)]
     return {"valid": not missing, "reason": "missing_edge" if missing else "grounded",
             "path": path, "missing_edges": missing, "endpoint": parts[-1]}

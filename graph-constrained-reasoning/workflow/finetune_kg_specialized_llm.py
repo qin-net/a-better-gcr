@@ -120,6 +120,8 @@ def train():
             lora_alpha=script_args.lora_alpha,
             lora_dropout=script_args.lora_dropout,
             target_modules=["q_proj", "v_proj"],
+            # The new <PATH>/</PATH> rows must be trained, not left at random init.
+            modules_to_save=["embed_tokens", "lm_head"],
             bias="none",
             task_type="CAUSAL_LM",
         )
@@ -241,6 +243,11 @@ def train():
     trainer.train(resume_from_checkpoint=checkpoint)
 
     trainer.save_model(training_args.output_dir)
+    if script_args.use_peft and script_args.save_merged:
+        # A standalone model (resized vocab + tokenizer) that inference can load directly.
+        merged_dir = os.path.join(training_args.output_dir, "merged")
+        trainer.model.merge_and_unload().save_pretrained(merged_dir)
+        tokenizer.save_pretrained(merged_dir)
 
 
 if __name__ == "__main__":

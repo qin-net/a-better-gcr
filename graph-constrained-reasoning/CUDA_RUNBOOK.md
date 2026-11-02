@@ -31,7 +31,12 @@ uv pip install --python .venv/Scripts/python.exe -r graph-constrained-reasoning/
 
 # 全量测试；另选新输出目录，--limit 0 表示整个 split。
 .venv/Scripts/python.exe graph-constrained-reasoning/workflow/cuda_baseline.py --limit 0 --output graph-constrained-reasoning/results/cuda_webqsp_full
+
+# 多重图 + 反向边建 trie（训练侧修复 B–E 组用）；默认 --graph directed 与上面完全一致。
+.venv/Scripts/python.exe graph-constrained-reasoning/workflow/cuda_baseline.py --limit 100 --graph multi --output gcr-lab/experiments/cuda_results/webqsp_100_multi
 ```
+
+`--graph multi` 保留同一对实体间的所有关系并允许反向走边（`src/multi_relation_graph.py`），trie 约大 4 倍；`path_audit` 随之接受反向边。说明见 `gcr-lab/experiments/FINDINGS.md` 第 O 节。
 
 输出目录必须为空，以免混用不同设置。每次保存模型/数据 commit、参数、运行库版本、GPU 名称、推理耗时、峰值显存、逐题预测及官方评测文件。数据直接取指定版本的原始 parquet，不执行远程数据集脚本。推理错误会保留为空预测，计入分母，并以非零状态退出。运行时间包括逐题 trie 构建和生成，不包括下载、模型加载和最终评测。
 

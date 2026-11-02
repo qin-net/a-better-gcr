@@ -30,3 +30,9 @@ def test_requires_start_depth_and_well_formed_output():
 
 def test_accepts_path_markers():
     assert check("<PATH>Alice -> born_in -> City</PATH>")["valid"]
+
+
+def test_reverse_steps_only_when_allowed():
+    text = "# Reasoning Path:\nCity -> born_in -> Alice\n# Answer:\nAlice"
+    assert not audit_prediction(text, GRAPH, ["City"], 2)["valid"]
+    assert audit_prediction(text, GRAPH, ["City"], 2, reverse=True)["valid"]

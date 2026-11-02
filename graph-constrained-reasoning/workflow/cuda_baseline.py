@@ -38,6 +38,9 @@ def main():
     parser.add_argument("--limit", type=int, default=20, help="0 evaluates the entire split")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--hops", type=int, default=2)
+    parser.add_argument("--graph", default="directed", choices=["directed", "undirected", "multi"],
+                        help="directed/undirected: official build_graph (one relation per pair); "
+                             "multi: keep every relation, traversable in reverse")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.start < 0 or args.limit < 0 or args.k < 1 or args.hops < 1:
@@ -49,7 +52,10 @@ def main():
         raise FileExistsError(f"Use a fresh output directory: {args.output}")
     set_seed(args.seed)
     api = HfApi()
-    model_revision = api.model_info(args.model_path, revision=args.model_revision).sha
+    # A local directory is a model trained here (e.g. gcr-lab/train_variants/runs/C).
+    local_model = Path(args.model_path).is_dir()
+    model_revision = (f"local:{Path(args.model_path).resolve()}" if local_model
+                      else api.model_info(args.model_path, revision=args.model_revision).sha)
     data_revision = api.dataset_info(args.dataset, revision=args.dataset_revision).sha
     # Resolve raw parquet files, avoiding remote dataset scripts and truncated mirrors.
     files = sorted(f for f in api.list_repo_files(args.dataset, repo_type="dataset",
@@ -77,9 +83,10 @@ def main():
         (args.output / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     save_manifest()
     # Load exactly the resolved revision, including the tokenizer and generation config.
-    from huggingface_hub import snapshot_download
-    args.model_path = snapshot_download(args.model_path, revision=model_revision,
-                                       ignore_patterns=["training_args.bin", "*.md"])
+    if not local_model:
+        from huggingface_hub import snapshot_download
+        args.model_path = snapshot_download(args.model_path, revision=model_revision,
+                                           ignore_patterns=["training_args.bin", "*.md"])
     model = GraphConstrainedDecodingModel(args)
     model.prepare_for_inference()
     if args.adapter:
@@ -88,7 +95,11 @@ def main():
         model.model.eval()
     if model.model.device.type != "cuda":
         raise RuntimeError("Model did not load on CUDA")
+    if args.graph == "multi":
+        from src import multi_relation_graph
+        multi_relation_graph.install(reverse=True)
     builder = PathGenerationWithAnswerPromptBuilder(model.tokenizer, "zero-shot",
+                                                    undirected=args.graph == "undirected",
                                                     index_path_length=args.hops)
     manifest["generation_config"] = model.generation_cfg.to_dict()
     save_manifest()
@@ -112,7 +123,8 @@ def main():
             elif isinstance(result["prediction"], str):
                 result["prediction"] = [result["prediction"]]
             result["path_audit"] = [audit_prediction(text, sample["graph"],
-                                                     sample["q_entity"], args.hops)
+                                                     sample["q_entity"], args.hops,
+                                                     reverse=args.graph != "directed")
                                     for text in result["prediction"]]
             audits.extend(result["path_audit"])
             answers = list(dict.fromkeys(text.split("# Answer:", 1)[1].strip()
