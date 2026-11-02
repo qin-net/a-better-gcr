@@ -1,5 +1,7 @@
 """Single-GPU continuation training; one deterministic shortest path per question."""
 import argparse
+import gzip
+import hashlib
 import json
 import sys
 import time
@@ -34,6 +36,26 @@ def encode_pair(tokenizer, prompt, response, max_length):
                 labels=[-100] * len(prefix) + tokens[len(prefix):])
 
 
+def read_packed(path, exclude_seeds=()):
+    """Rows of a packed training set (gcr-lab/train_variants/data/<V>.jsonl.gz).
+
+    CWQ ids are `<WebQSP seed id>_<hash>`, and about half of the WebQSP test
+    questions seed a CWQ training question. A row whose seed is in
+    `exclude_seeds` (validation, and test unless asked otherwise) is dropped.
+    Returns (rows, number dropped).
+    """
+    rows, dropped = [], 0
+    with gzip.open(path, 'rt', encoding='utf-8') as f:
+        for line in f:
+            row = json.loads(line)
+            if row['id'].split('_', 1)[0] in exclude_seeds:
+                dropped += 1
+                continue
+            row['paths'] = [[tuple(step) for step in p] for p in row.pop('ground_truth_paths')]
+            rows.append(row)
+    return rows, dropped
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', type=Path, required=True)
@@ -44,12 +66,20 @@ def main():
     p.add_argument('--learning-rate', type=float, default=2e-5)
     p.add_argument('--gradient-accumulation', type=int, default=8)
     p.add_argument('--select-best', action='store_true', help='Select epoch checkpoint using validation loss only')
+    p.add_argument('--train-data', type=Path,
+                   help='Packed training set (gcr-lab/train_variants/data/<V>.jsonl.gz) instead of '
+                        'shortest paths in the WebQSP train subgraphs')
+    p.add_argument('--paths-per-question', type=int, default=1,
+                   help='Training sequences per question, shortest paths first (default 1)')
+    p.add_argument('--keep-test-seeds', action='store_true',
+                   help='With --train-data, keep CWQ questions built from WebQSP test questions '
+                        '(the official GCR mix); dropped by default')
     args = p.parse_args()
     if not torch.cuda.is_available() or not torch.cuda.is_bf16_supported():
         raise RuntimeError('A CUDA GPU with bf16 support is required')
     if (args.epochs <= 0 or args.validation_limit < 1 or args.max_length < 1
-            or args.gradient_accumulation < 1 or args.learning_rate <= 0):
-        p.error('epochs, lengths, learning-rate and gradient-accumulation must be positive')
+            or args.gradient_accumulation < 1 or args.learning_rate <= 0 or args.paths_per_question < 1):
+        p.error('epochs, lengths, learning-rate, gradient-accumulation and paths-per-question must be positive')
     args.output.mkdir(parents=True, exist_ok=True)
     if any(args.output.iterdir()):
         raise FileExistsError('Use a fresh output directory')
@@ -57,38 +87,60 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(MODEL, revision=MODEL_REV)
     files = HfApi().list_repo_files(DATA, repo_type='dataset', revision=DATA_REV)
     stats, ids = {}, {}
-    def prepare(split, limit=None):
+    def load(split, limit=None):
         paths = [hf_hub_download(DATA, f, repo_type='dataset', revision=DATA_REV)
                  for f in sorted(files) if f.startswith('data/' + split + '-') and f.endswith('.parquet')]
         raw = load_dataset('parquet', data_files={split: paths}, split=split)
         if limit:
             raw = raw.select(range(min(limit, len(raw))))
+        return raw
+    def prepare(split, samples, n_paths=1, extra=None):
         rows, selected = [], []
         skipped = dict(no_path=0, too_long=0)
-        for sample in raw:
-            paths = get_truth_paths(sample['q_entity'], sample['a_entity'], build_graph(sample['graph']))
+        for sample in samples:
+            if 'paths' in sample:
+                paths = sample['paths']
+            else:
+                paths = get_truth_paths(sample['q_entity'], sample['a_entity'], build_graph(sample['graph']))
             paths = sorted((path for path in paths if path), key=lambda path: (len(path), path_to_string(path)))
             if not paths:
                 skipped['no_path'] += 1
                 continue
-            path = paths[0]
             question = sample['question'].rstrip('?') + '?'
             prompt = PathGenerationWithAnswerPromptBuilder.ZERO_SHOT_PROMPT.format(
                 question=question, entities=','.join(sample['q_entity']))
-            response = '# Reasoning Path:\n<PATH>' + path_to_string(path) + '</PATH>\n# Answer:\n' + path[-1][-1].strip()
-            row = encode_pair(tokenizer, prompt, response, args.max_length)
-            if row is None:
-                skipped['too_long'] += 1
-                continue
-            rows.append(row)
-            selected.append(sample['id'])
-        stats[split] = dict(input_questions=len(raw), training_sequences=len(rows), skipped=skipped)
+            kept = 0
+            for path in paths[:n_paths]:
+                response = '# Reasoning Path:\n<PATH>' + path_to_string(path) + '</PATH>\n# Answer:\n' + path[-1][-1].strip()
+                row = encode_pair(tokenizer, prompt, response, args.max_length)
+                if row is None:
+                    skipped['too_long'] += 1
+                    continue
+                rows.append(row)
+                kept += 1
+            if kept:
+                selected.append(sample['id'])
+        stats[split] = dict(input_questions=len(samples), training_sequences=len(rows), skipped=skipped,
+                            **(extra or {}))
         ids[split] = selected
         if not rows:
             raise ValueError('No usable samples for ' + split)
         return Dataset.from_list(rows)
-    train = prepare('train')
-    validation = prepare('validation', args.validation_limit)
+    validation_raw = load('validation', args.validation_limit)
+    if args.train_data:
+        # Drop CWQ questions built from a validation (or test) seed question; keep
+        # the WebQSP validation split as the shared yardstick across variants.
+        seeds = set(load('validation')['id'])
+        if not args.keep_test_seeds:
+            seeds |= set(load('test')['id'])
+        packed, dropped = read_packed(args.train_data, seeds)
+        train = prepare('train', packed, args.paths_per_question,
+                        dict(source=str(args.train_data), dropped_seed_overlap=dropped,
+                             kept_test_seeds=args.keep_test_seeds,
+                             sha256=hashlib.sha256(args.train_data.read_bytes()).hexdigest()))
+    else:
+        train = prepare('train', load('train'), args.paths_per_question)
+    validation = prepare('validation', validation_raw)
     assert not set(ids['train']) & set(ids['validation'])
     model = AutoModelForCausalLM.from_pretrained(MODEL, revision=MODEL_REV,
                 torch_dtype=torch.bfloat16, attn_implementation='sdpa').cuda()
@@ -113,7 +165,9 @@ def main():
     trainer = Trainer(model=model, args=cfg, train_dataset=train, eval_dataset=validation, data_collator=collate)
     manifest = dict(status='running', model=MODEL, model_revision=MODEL_REV, dataset_revision=DATA_REV,
                     preprocessing=dict(max_length=args.max_length, validation_limit=args.validation_limit,
-                                       path_policy='one_shortest_nonempty_path_per_question'),
+                                       train_data=str(args.train_data) if args.train_data else None,
+                                       path_policy='shortest_nonempty_paths_per_question',
+                                       paths_per_question=args.paths_per_question),
                     data=stats, sample_ids=ids, training_args=cfg.to_dict(),
                     trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),
                     gpu=torch.cuda.get_device_name(), torch=torch.__version__)

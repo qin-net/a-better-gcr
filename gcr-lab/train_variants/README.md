@@ -29,49 +29,40 @@ B–E 训练和推理都换成多重图。
 ## 在 GPU 电脑上跑（RTX 4060 8GB）
 
 数据已打包在 `data/<V>.jsonl.gz`（共约 20MB，已入库），不需要在 GPU 电脑上重新生成。
+训练沿用已验证的 `train_cuda_lora.py`（LoRA v1/v2 那套：官方 GCR-0.5B 上继续训，r=8 q/v，
+每题一条确定性最短路径），只把训练数据换成 `--train-data`：
 
 ```powershell
-# 1. 训练依赖：在 CUDA_RUNBOOK 的推理环境上补装（trl 需与 transformers 4.44 匹配）
-uv pip install --python .venv/Scripts/python.exe "trl==0.10.1"
+# 训练一组（以 C 为例）。超参与 LoRA v1 相同；17.6k 条序列，按 v1 的速度约 15 分钟一组
+.venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/train_cuda_lora.py `
+    --train-data gcr-lab/train_variants/data/C.jsonl.gz `
+    --output graph-constrained-reasoning/training_runs/variant_C
 
-# 2. 转成官方 load_from_disk 格式
-.venv/Scripts/python.exe gcr-lab/train_variants/to_hf.py A B C D E
-
-# 3. 训练一组（以 C 为例）。0.5B + LoRA，单卡；先用 --max_steps 200 试跑看显存与耗时
-cd graph-constrained-reasoning
-..\.venv\Scripts\python.exe workflow/finetune_kg_specialized_llm.py `
-    --data_path_list ../gcr-lab/train_variants/hf/C `
-    --model_name_or_path Qwen/Qwen2-0.5B-Instruct `
-    --output_dir ../gcr-lab/train_variants/runs/C `
-    --use_peft True --lora_r 8 --save_merged True `
-    --bf16 True --num_train_epochs 1 `
-    --per_device_train_batch_size 4 --gradient_accumulation_steps 4 `
-    --learning_rate 2e-4 --lr_scheduler_type cosine --warmup_ratio 0.03 `
-    --gradient_checkpointing True --save_strategy no --eval_strategy no `
-    --logging_steps 10 --report_to none --attn_implementation sdpa `
-    --response_template "<|im_start|>assistant" --max_seq_length 1024 `
-    --dataloader_num_workers 0 --seed 42
-
-# 4. 用合并后的模型评测（E 组改 --hops 3，A 组改 --graph directed）
-cd ..
+# 评测：E 组改 --hops 3；A 组 --graph directed 与 --graph multi 各跑一次，把“换图”与“换数据”分开
 .venv/Scripts/python.exe graph-constrained-reasoning/workflow/cuda_baseline.py `
-    --model_path gcr-lab/train_variants/runs/C/merged --graph multi --hops 2 `
-    --limit 100 --output gcr-lab/experiments/cuda_results/train_C_webqsp_100
+    --adapter graph-constrained-reasoning/training_runs/variant_C/adapter `
+    --prefill-path --graph multi --hops 2 --limit 100 `
+    --output gcr-lab/experiments/cuda_results/variant_C_webqsp_100
 ```
 
 注意：
 
-- 这五组都从**原始 Qwen2-0.5B-Instruct** 开始训练，不是在官方 GCR 权重上继续训。官方
-  GCR-0.5B 的数字只作参考，不能和 A–E 直接比较；A 组才是可比基线。
-- 官方训练会给分词器加 `<PATH>`、`</PATH>` 两个特殊 token 并扩展词表。官方 LoRA 只训练
-  `q_proj, v_proj`，新 token 的嵌入会停留在随机初始化，所以我给 LoRA 加了
-  `modules_to_save=["embed_tokens", "lm_head"]`（官方脚本默认是全参训练，不走这段）。
-  Qwen2-0.5B 的嵌入与输出层共享权重，PEFT 可能对此给出警告，需要在 GPU 上确认。
-- `--save_merged True` 会额外保存 `runs/<V>/merged/`：合并 LoRA、带扩展词表和分词器的完整
-  模型，评测直接用它，不需要 `--adapter`。`cuda_baseline.py` 遇到本地目录时跳过 HF 版本解析，
-  在 manifest 里记录本地路径。
-- 先在 `--limit 100` 上把五组跑通，看出趋势后再跑全量测试集与 CWQ 测试集。
-- 第 3、4 步都还没在 GPU 上跑过。
+- **测试泄漏**：CWQ 每题由一道 WebQSP 题改写而来，id 前缀就是那道题的 id。CWQ 训练集里有
+  7,082 题（`A`–`C`）的种子是 WebQSP **测试**题，覆盖 1,628 道测试题中的 815 道（前 100 题中
+  48 道）。官方 GCR 训练混合了两者，所以官方权重本身已见过这些改写。`--train-data` 默认丢掉
+  这些题以及种子在 validation 中的题，A–C 剩约 17.6k 题，D 18.1k，E 19.6k；
+  `--keep-test-seeds` 恢复官方混法。论文里 WebQSP 数字应当用默认（丢弃）设置报告。
+- 起点是官方 GCR-0.5B，它已在官方路径（≈ A 组）上训过，所以 A 组相当于“同分布再训一次”，
+  是 B–E 的可比基线；不能拿 A–E 和官方原始权重的数字直接比较。
+- 默认每题一条最短路径（与 v1/v2 一致）。`--paths-per-question N` 每题取前 N 条，但这样各组序列
+  数不同，需固定步数比较。
+- 在本机（CPU）用官方分词器编码了 A/C/E 各约 1k 题抽样：没有超过 512 token 的序列，中位长度
+  约 135。完整训练只能在 GPU 上跑，还没跑过。
+
+`finetune_kg_specialized_llm.py`（官方脚本，从原始 Qwen2-0.5B 起训）也能读这些数据
+（`to_hf.py` 转成 `load_from_disk` 格式，LoRA 已加 `modules_to_save` 训练 PATH token 嵌入，
+`--save_merged True` 导出合并模型供 `cuda_baseline.py --model_path` 评测），但在 4060 上没跑过，
+作为复现官方完整训练的备选，不是主线。
 
 ## 重新生成（CPU，约 11 分钟）
 

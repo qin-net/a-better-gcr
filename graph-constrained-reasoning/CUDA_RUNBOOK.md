@@ -76,3 +76,12 @@ uv pip install --python .venv/Scripts/python.exe -r graph-constrained-reasoning/
 评测时可加 `--record-token-trace`，在逐题输出中保留包含特殊 token 的原始字符串及整次 beam 搜索的空前缀回退计数。计数不是单条输出的回退次数；该诊断不改变原始解码行为。
 
 `--prefill-path` 则显式改变生成条件：在 assistant 输入后预填 `# Reasoning Path:\n<PATH>`，从第一个生成的路径 token 开始进入 trie；返回文本会补回路径标题。只适用于具有专用 PATH token 的模型，默认关闭。它防止开头缺失/写错 PATH 标记，不移除原有空前缀回退，因此仍应检查 `path_audit`，其指标也应单独报告。
+
+## 训练侧修复 A–E
+
+```powershell
+.venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/train_cuda_lora.py --train-data gcr-lab/train_variants/data/C.jsonl.gz --output graph-constrained-reasoning/training_runs/variant_C
+.venv/Scripts/python.exe graph-constrained-reasoning/workflow/cuda_baseline.py --adapter graph-constrained-reasoning/training_runs/variant_C/adapter --prefill-path --graph multi --hops 2 --limit 100 --output gcr-lab/experiments/cuda_results/variant_C_webqsp_100
+```
+
+`--train-data` 用打包好的 CWQ + WebQSP 训练集代替 WebQSP train 子图上的最短路，其余设置与 v1 相同。默认丢掉种子题在 WebQSP validation 或 test 中的 CWQ 题（约 7k 题，覆盖一半测试题），`--keep-test-seeds` 恢复官方混法。`--paths-per-question N` 每题取前 N 条最短路，默认 1。五组的含义、评测参数（E 组 `--hops 3`，A 组两种建图各跑一次）和泄漏统计见 [gcr-lab/train_variants/README.md](../gcr-lab/train_variants/README.md)。
