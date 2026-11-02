@@ -2,3 +2,4 @@ out/
 data/
 .venv/
 __pycache__/
+!train_variants/data/
