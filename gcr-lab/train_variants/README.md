@@ -33,31 +33,52 @@ B–E 训练和推理都换成多重图。
 每题一条确定性最短路径），只把训练数据换成 `--train-data`：
 
 ```powershell
-# 训练一组（以 C 为例）。超参与 LoRA v1 相同；17.6k 条序列，按 v1 的速度约 15 分钟一组
+# 训练一组（以 C 为例）。超参与 LoRA v1 相同；A–C 约 16.1k 条序列，
+# 4060 上 mb1 + 梯度检查点约 14 分钟 128 步，完整一个 epoch 约 1 小时 50 分
 .venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/train_cuda_lora.py `
     --train-data gcr-lab/train_variants/data/C.jsonl.gz `
     --output graph-constrained-reasoning/training_runs/variant_C
-
-# 评测：E 组改 --hops 3；A 组 --graph directed 与 --graph multi 各跑一次，把“换图”与“换数据”分开
-.venv/Scripts/python.exe graph-constrained-reasoning/workflow/cuda_baseline.py `
-    --adapter graph-constrained-reasoning/training_runs/variant_C/adapter `
-    --prefill-path --graph multi --hops 2 --limit 100 `
-    --output gcr-lab/experiments/cuda_results/variant_C_webqsp_100
 ```
+
+固定 128 步的五组先导对照见 [GPU_PILOT_PROTOCOL.md](GPU_PILOT_PROTOCOL.md)。评测五组 adapter：
+
+```powershell
+.venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/run_variant_eval.py `
+    --pilot graph-constrained-reasoning/training_runs/ae_pilot_128_mb1 --limit 100
+```
+
+对 WebQSP 和 CWQ 测试集前 100 题各跑 7 次 `cuda_baseline.py --prefill-path`：官方权重、A（有向图）、
+A_multi（多重图，把“换图”与“换数据”分开）、B–E（多重图 2 跳）、E_hops3。E_hops3 的 trie 仍只
+建在题目自带子图上，不含图池，所以它只检验解码深度，不代表图池修复已在推理中生效（FINDINGS K）。
+已完成的组重启时跳过。最后用 `score_faithfulness.py` 写出 `faithfulness.json`：
+
+- `hit` / `f1`：与 `cuda_baseline` manifest 的 answer_section_metrics 相同。
+- `faithful`：路径落在子图上，且所有关系出现在该题某一个标注 SPARQL 中。标准关系来自
+  `gcr-lab/eval/gold_relations.jsonl.gz`（`experiments/build_gold_relations.py` 由原始 WebQSP 与 CWQ
+  SPARQL 生成，已入库）。
+- `faithful_hit`：有一条路径既答对又忠实；`unfaithful_hit`：答对了，但只靠不忠实的路径。
+
+已有结果（WebQSP 前 100 题，未 prefill）：
+
+| 运行 | hit | f1 | faithful_hit | unfaithful_hit | 路径忠实率 |
+|---|---|---|---|---|---|
+| 官方 | 0.63 | 0.377 | 0.53 | 0.10 | 52.0% |
+| LoRA v1 | 0.66 | 0.409 | 0.58 | 0.08 | 55.5% |
+| LoRA v2 | 0.70 | 0.438 | 0.60 | 0.10 | 55.0% |
 
 注意：
 
 - **测试泄漏**：CWQ 每题由一道 WebQSP 题改写而来，id 前缀就是那道题的 id。CWQ 训练集里有
   7,082 题（`A`–`C`）的种子是 WebQSP **测试**题，覆盖 1,628 道测试题中的 815 道（前 100 题中
   48 道）。官方 GCR 训练混合了两者，所以官方权重本身已见过这些改写。`--train-data` 默认丢掉
-  这些题以及种子在 validation 中的题，A–C 剩约 17.6k 题，D 18.1k，E 19.6k；
+  这些题以及种子在 validation 中的题，A–C 剩约 16.1k 条序列（丢 8,548 行），D 16.7k（丢 8,827），E 18.0k（丢 9,444）；
   `--keep-test-seeds` 恢复官方混法。论文里 WebQSP 数字应当用默认（丢弃）设置报告。
 - 起点是官方 GCR-0.5B，它已在官方路径（≈ A 组）上训过，所以 A 组相当于“同分布再训一次”，
   是 B–E 的可比基线；不能拿 A–E 和官方原始权重的数字直接比较。
 - 默认每题一条最短路径（与 v1/v2 一致）。`--paths-per-question N` 每题取前 N 条，但这样各组序列
   数不同，需固定步数比较。
 - 在本机（CPU）用官方分词器编码了 A/C/E 各约 1k 题抽样：没有超过 512 token 的序列，中位长度
-  约 135。完整训练只能在 GPU 上跑，还没跑过。
+  约 135。GPU 上已跑过 128 步先导（`training_runs/ae_pilot_128_mb1`），完整 epoch 还没跑。
 
 `finetune_kg_specialized_llm.py`（官方脚本，从原始 Qwen2-0.5B 起训）也能读这些数据
 （`to_hf.py` 转成 `load_from_disk` 格式，LoRA 已加 `modules_to_save` 训练 PATH token 嵌入，

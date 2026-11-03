@@ -84,4 +84,6 @@ uv pip install --python .venv/Scripts/python.exe -r graph-constrained-reasoning/
 .venv/Scripts/python.exe graph-constrained-reasoning/workflow/cuda_baseline.py --adapter graph-constrained-reasoning/training_runs/variant_C/adapter --prefill-path --graph multi --hops 2 --limit 100 --output gcr-lab/experiments/cuda_results/variant_C_webqsp_100
 ```
 
-`--train-data` 用打包好的 CWQ + WebQSP 训练集代替 WebQSP train 子图上的最短路，其余设置与 v1 相同。默认丢掉种子题在 WebQSP validation 或 test 中的 CWQ 题（约 7k 题，覆盖一半测试题），`--keep-test-seeds` 恢复官方混法。`--paths-per-question N` 每题取前 N 条最短路，默认 1。五组的含义、评测参数（E 组 `--hops 3`，A 组两种建图各跑一次）和泄漏统计见 [gcr-lab/train_variants/README.md](../gcr-lab/train_variants/README.md)。
+`--train-data` 用打包好的 CWQ + WebQSP 训练集代替 WebQSP train 子图上的最短路，其余设置与 v1 相同。默认丢掉种子题在 WebQSP validation 或 test 中的 CWQ 题（A–C 约 8.5k 行，其中 7,082 行的种子是测试题，覆盖一半测试题），`--keep-test-seeds` 恢复官方混法。`--paths-per-question N` 每题取前 N 条最短路，默认 1。五组的含义、评测参数（E 组 `--hops 3`，A 组两种建图各跑一次）和泄漏统计见 [gcr-lab/train_variants/README.md](../gcr-lab/train_variants/README.md)。
+
+`workflow/run_variant_eval.py` 依次评测官方权重与先导 adapter（WebQSP、CWQ 各前 100 题），`workflow/score_faithfulness.py <run_dir>...` 在 Hit/F1 之外统计路径是否忠实于标注 SPARQL（关系表 `gcr-lab/eval/gold_relations.jsonl.gz`），也可单独用于任何 `cuda_baseline.py` 输出。
