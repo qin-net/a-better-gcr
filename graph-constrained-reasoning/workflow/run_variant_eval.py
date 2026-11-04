@@ -33,24 +33,32 @@ def runs(pilot):
     yield 'E_hops3', pilot / 'E' / 'adapter', 'multi', 3
 
 
+def complete(output):
+    manifest = output / 'manifest.json'
+    return manifest.exists() and json.loads(manifest.read_text(encoding='utf-8'))['status'] == 'complete'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--pilot', type=Path, default=Path('graph-constrained-reasoning/training_runs/ae_pilot_128_mb1'))
     parser.add_argument('--output', type=Path)
     parser.add_argument('--datasets', nargs='+', default=['webqsp', 'cwq'], choices=sorted(DATASETS))
     parser.add_argument('--limit', type=int, default=100)
+    parser.add_argument('--runs', nargs='+', help='Subset of runs, e.g. official A C (default: all)')
     args = parser.parse_args()
     args.output = args.output or Path('gcr-lab/experiments/cuda_results') / args.pilot.name
+    known = [r[0] for r in runs(args.pilot)]
+    if args.runs and set(args.runs) - set(known):
+        parser.error(f'unknown runs {sorted(set(args.runs) - set(known))}; choose from {known}')
     workflow = Path(__file__).resolve().parent
     for dataset in args.datasets:
         name, revision = DATASETS[dataset]
-        done = []
         for run, adapter, graph, hops in runs(args.pilot):
+            if args.runs and run not in args.runs:
+                continue
             output = args.output / f'{dataset}_{args.limit}' / run
-            manifest = output / 'manifest.json'
-            if manifest.exists() and json.loads(manifest.read_text(encoding='utf-8'))['status'] == 'complete':
+            if complete(output):
                 print(f'Skipping completed {dataset}/{run}', flush=True)
-                done.append(output)
                 continue
             if output.exists() and any(output.iterdir()):
                 raise FileExistsError(f'Archive the incomplete run first: {output}')
@@ -68,7 +76,10 @@ def main():
                 result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
             if result.returncode:
                 raise RuntimeError(f'{dataset}/{run} failed; see {output.parent / (run + ".log")}')
-            done.append(output)
+        # Score every completed run of this dataset, including ones from earlier invocations.
+        done = [d for d in (args.output / f'{dataset}_{args.limit}' / r for r in known) if complete(d)]
+        if not done:
+            continue
         subprocess.run([sys.executable, str(workflow / 'score_faithfulness.py'), *map(str, done),
                         '--json', str(args.output / f'{dataset}_{args.limit}' / 'faithfulness.json')],
                        check=True)
