@@ -1,4 +1,4 @@
-"""Evaluate the A-E pilot adapters with cuda_baseline, then score path faithfulness.
+"""Evaluate A-E adapters (pilot or full run) with cuda_baseline, then score path faithfulness.
 
 Every run decodes with --prefill-path on the first N test questions of WebQSP
 and CWQ. Runs:
@@ -11,7 +11,8 @@ and CWQ. Runs:
               decoding depth, not the pool repair (FINDINGS K).
 
 Completed runs are skipped on restart; an incomplete run directory must be
-archived first. Results: <output>/<dataset>/<run>/, faithfulness.json.
+archived first. Results: <output>/<dataset>_<limit>/<run>/ and faithfulness.json;
+<output> defaults to gcr-lab/experiments/cuda_results/<pilot directory name>.
 """
 import argparse
 import json
@@ -35,10 +36,11 @@ def runs(pilot):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--pilot', type=Path, default=Path('graph-constrained-reasoning/training_runs/ae_pilot_128_mb1'))
-    parser.add_argument('--output', type=Path, default=Path('gcr-lab/experiments/cuda_results/ae_pilot_128_mb1'))
+    parser.add_argument('--output', type=Path)
     parser.add_argument('--datasets', nargs='+', default=['webqsp', 'cwq'], choices=sorted(DATASETS))
     parser.add_argument('--limit', type=int, default=100)
     args = parser.parse_args()
+    args.output = args.output or Path('gcr-lab/experiments/cuda_results') / args.pilot.name
     workflow = Path(__file__).resolve().parent
     for dataset in args.datasets:
         name, revision = DATASETS[dataset]

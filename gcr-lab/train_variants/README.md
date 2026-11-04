@@ -43,9 +43,12 @@ B–E 训练和推理都换成多重图。
 固定 128 步的五组先导对照见 [GPU_PILOT_PROTOCOL.md](GPU_PILOT_PROTOCOL.md)。评测五组 adapter：
 
 ```powershell
+# 完整 1-epoch 的五组（ae_full），结果写到 gcr-lab/experiments/cuda_results/ae_full/
 .venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/run_variant_eval.py `
-    --pilot graph-constrained-reasoning/training_runs/ae_pilot_128_mb1 --limit 100
+    --pilot graph-constrained-reasoning/training_runs/ae_full --limit 100
 ```
+
+`--pilot` 换成 `training_runs/ae_pilot_128_mb1` 即评测 128 步先导。
 
 对 WebQSP 和 CWQ 测试集前 100 题各跑 7 次 `cuda_baseline.py --prefill-path`：官方权重、A（有向图）、
 A_multi（多重图，把“换图”与“换数据”分开）、B–E（多重图 2 跳）、E_hops3。E_hops3 的 trie 仍只
