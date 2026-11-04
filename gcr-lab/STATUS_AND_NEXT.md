@@ -43,72 +43,47 @@ ae_full 的验证 loss：A 从 0.3153 降到 0.3075，B–E 升到 0.334–0.346
 
 预先知道的上限：CWQ 测试集 3,531 题中有 **19.3%（683 题）答案不在题目子图里**，WebQSP 是 4.4%。这些题任何一组都答不对，训练侧修复也救不了，这是推理侧的问题（见 §5）。
 
-## 3. 今晚执行清单（GPU 电脑）
+## 3. 今晚执行（GPU 电脑，一条命令）
 
-所有命令都在仓库根目录用 PowerShell 执行。**不要改代码，不要用 `--keep-test-seeds`。**
-
-### 0. 准备
+在仓库根目录用 PowerShell 执行：
 
 ```powershell
 git pull
-.venv/Scripts/python.exe -m pytest -q graph-constrained-reasoning/tests
+.venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/run_overnight.py --push
 ```
 
-应该 17 个测试全部通过。不通过就停下，把输出记下来。
+然后就可以不管了。脚本会自己完成这些事：
 
-### 阶段 1：ae_full，两个数据集各取前 100 题（16 次运行，预计 1–2 小时）
+1. **启动前检查**：CUDA 可用；单元测试通过（装了 pytest 才跑）；10 个 adapter 文件齐全。任何一项不满足就直接退出，不开始跑。
+2. **按优先级依次跑三个阶段**：
+
+   | 阶段 | 内容 | 运行次数 | 预计 |
+   |---|---|---|---|
+   | 1 | ae_full 全部 8 组，WebQSP、CWQ 各前 100 题 | 16 | 1–2 小时 |
+   | 2 | official A A_multi B C D，各前 500 题 | 12 | 3–5 小时 |
+   | 3 | 128 步先导 A B C D，各前 100 题 | 8 | 约 30 分钟 |
+
+   阶段 2 扩到 500 题，是因为 100 题的标准误约 ±5 个百分点，不足以区分各组。阶段 3 用来看训练步数的影响。
+3. **出错时**：某一组失败或超时（默认每题 20 秒的预算，正常约 2 秒），就把它改名为 `<run>_failed` 并保留日志，然后继续下一组。打分出错也不会中断，预测文件都保留着，可以事后重新打分。
+4. **每个阶段结束**：自动 `git commit` 和 `git push` 结果，并更新 `gcr-lab/experiments/cuda_results/OVERNIGHT_REPORT.md`。这个报告里有逐组的开始/完成时间、失败原因和每个数据集的结果表。
+
+可选参数：
+
+- `--hours 8`：超过 8 小时后不再开始新的阶段，正在跑的阶段会跑完。
+- `--stages 1 2`：只跑指定的阶段。
+
+**中断了**（关机、断电、Ctrl+C）：重跑同一条命令即可。已完成的组会自动跳过，跑到一半的那组会自动改名为 `_failed` 后重跑。
+
+**push 失败**（网络问题）：结果已经在本地 commit 了，第二天手动 `git push` 就行。
+
+**不要改代码，不要删除结果目录，不要修改 `predictions.jsonl`。**
+
+单独跑某一组时，用底层命令，参数和以前一样：
 
 ```powershell
 .venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/run_variant_eval.py `
-    --pilot graph-constrained-reasoning/training_runs/ae_full --limit 100
+    --pilot graph-constrained-reasoning/training_runs/ae_full --limit 100 --runs official C --keep-going
 ```
-
-- 依次跑 official、A、A_multi、B、C、D、E、E_hops3，先跑 WebQSP，再跑 CWQ。
-- 结果写在 `gcr-lab/experiments/cuda_results/ae_full/{webqsp_100,cwq_100}/`，每个数据集最后打印一张表并写 `faithfulness.json`。
-- E_hops3 的 trie 会大很多，最慢，可能内存不够。
-
-跑完立刻提交一次，见“提交”一节。
-
-### 阶段 2：主要几组扩到前 500 题（12 次运行，预计 3–5 小时）
-
-100 题的标准误约 ±5 个百分点，不足以区分各组，所以扩到 500 题：
-
-```powershell
-.venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/run_variant_eval.py `
-    --pilot graph-constrained-reasoning/training_runs/ae_full --limit 500 `
-    --runs official A A_multi B C D
-```
-
-结果写在 `cuda_results/ae_full/{webqsp_500,cwq_500}/`。如果天亮前没跑完也没关系，提交已完成的部分。
-
-### 阶段 3（时间还够才跑）：128 步先导，前 100 题
-
-```powershell
-.venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/run_variant_eval.py `
-    --pilot graph-constrained-reasoning/training_runs/ae_pilot_128_mb1 --limit 100 `
-    --runs A B C D
-```
-
-它用来看训练步数对忠实度的影响，优先级最低。
-
-### 出错时
-
-- 驱动遇到失败会停下，报错里会写日志路径（`<输出目录>/<run>.log`）。把日志最后 30 行记下来。
-- 然后把失败的那个目录改名，比如 `E_hops3` 改成 `E_hops3_failed`，再用同一条命令重跑。已完成的组会自动跳过，最后的打分会包含所有已完成的组。
-- 只有 E_hops3 失败（比如内存不够）时，就加 `--runs official A A_multi B C D E` 跳过它，并记录原因。
-- 不要删除任何结果目录，也不要修改 `predictions.jsonl`。
-
-### 提交
-
-每个阶段结束后都提交一次：
-
-```powershell
-git add gcr-lab/experiments/cuda_results/ae_full gcr-lab/experiments/cuda_results/ae_pilot_128_mb1
-git commit -m "A–E 解码评测：<阶段与完成情况>"
-git push
-```
-
-commit message 里写明完成了哪些运行、哪些失败以及原因，再附上每个阶段终端最后打印的表格。
 
 ## 4. 结果怎么读（拿到结果后由 Mac 端分析）
 
