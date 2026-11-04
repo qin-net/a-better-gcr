@@ -1,0 +1,196 @@
+{
+  "status": "complete",
+  "variants": {
+    "A": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/A.jsonl.gz",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_full\\A"
+      ],
+      "status": "complete",
+      "before": 0.3152926564216614,
+      "after": 0.30754172801971436,
+      "data": {
+        "train": {
+          "input_questions": 16102,
+          "training_sequences": 16102,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\A.jsonl.gz",
+          "dropped_seed_overlap": 8548,
+          "kept_test_seeds": false,
+          "sha256": "402ba8e38000f5f79039d148a879c1f957357fac95b1c79474ef3911d71ee104"
+        },
+        "validation": {
+          "input_questions": 100,
+          "training_sequences": 93,
+          "skipped": {
+            "no_path": 7,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 847.827311800007,
+      "peak_allocated_bytes": 2702638592
+    },
+    "B": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/B.jsonl.gz",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_full\\B"
+      ],
+      "status": "complete",
+      "before": 0.3152926564216614,
+      "after": 0.3463665843009949,
+      "data": {
+        "train": {
+          "input_questions": 16103,
+          "training_sequences": 16103,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\B.jsonl.gz",
+          "dropped_seed_overlap": 8548,
+          "kept_test_seeds": false,
+          "sha256": "97a9717cb45ea042635ca6263b8cfd3decbb07a7fce66f88aaad44604ad3751c"
+        },
+        "validation": {
+          "input_questions": 100,
+          "training_sequences": 93,
+          "skipped": {
+            "no_path": 7,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 1009.5112109000038,
+      "peak_allocated_bytes": 2536570368
+    },
+    "C": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/C.jsonl.gz",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_full\\C"
+      ],
+      "status": "complete",
+      "before": 0.3152926564216614,
+      "after": 0.33442625403404236,
+      "data": {
+        "train": {
+          "input_questions": 16103,
+          "training_sequences": 16103,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\C.jsonl.gz",
+          "dropped_seed_overlap": 8548,
+          "kept_test_seeds": false,
+          "sha256": "dd10edcfe7a0c1dbf2751fdaeb535e046aca7c4b265a7eb926d6302430ff6b5b"
+        },
+        "validation": {
+          "input_questions": 100,
+          "training_sequences": 93,
+          "skipped": {
+            "no_path": 7,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 1108.2778276000172,
+      "peak_allocated_bytes": 2662638080
+    },
+    "D": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/D.jsonl.gz",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_full\\D"
+      ],
+      "status": "complete",
+      "before": 0.3152926564216614,
+      "after": 0.3346877694129944,
+      "data": {
+        "train": {
+          "input_questions": 16656,
+          "training_sequences": 16656,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\D.jsonl.gz",
+          "dropped_seed_overlap": 8827,
+          "kept_test_seeds": false,
+          "sha256": "ef538cfe5dc29234494a8cd47902d547a4db8d5d0fa8789b4fe063f46a164fbd"
+        },
+        "validation": {
+          "input_questions": 100,
+          "training_sequences": 93,
+          "skipped": {
+            "no_path": 7,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 1144.836404199974,
+      "peak_allocated_bytes": 2657776128
+    },
+    "E": {
+      "command": [
+        "D:\\desktop\\vs\\a-better-gcr\\.venv\\Scripts\\python.exe",
+        "-u",
+        "D:\\desktop\\vs\\a-better-gcr\\graph-constrained-reasoning\\workflow\\train_cuda_lora.py",
+        "--train-data",
+        "gcr-lab/train_variants/data/E.jsonl.gz",
+        "--output",
+        "graph-constrained-reasoning\\training_runs\\ae_full\\E"
+      ],
+      "status": "complete",
+      "before": 0.3152926564216614,
+      "after": 0.33526766300201416,
+      "data": {
+        "train": {
+          "input_questions": 18016,
+          "training_sequences": 18016,
+          "skipped": {
+            "no_path": 0,
+            "too_long": 0
+          },
+          "source": "gcr-lab\\train_variants\\data\\E.jsonl.gz",
+          "dropped_seed_overlap": 9444,
+          "kept_test_seeds": false,
+          "sha256": "fbc44a7f94d91884ac241f19b5bde03c41aa481ff73e61f17a8129a5f2beff95"
+        },
+        "validation": {
+          "input_questions": 100,
+          "training_sequences": 93,
+          "skipped": {
+            "no_path": 7,
+            "too_long": 0
+          }
+        }
+      },
+      "training_seconds": 1246.1034531999903,
+      "peak_allocated_bytes": 2660852224
+    }
+  },
+  "interpretation": "Full 1-epoch LoRA per variant from the same base, v1 config (batch=2, accum=8, no gradient checkpointing, lr 2e-5). Shared WebQSP validation loss recorded before/after."
+}
