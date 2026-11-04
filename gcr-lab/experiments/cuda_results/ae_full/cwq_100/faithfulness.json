@@ -1,0 +1,135 @@
+[
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_100\\official",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.39,
+      "f1": 0.28398621553884723,
+      "any_faithful": 0.11,
+      "faithful_hit": 0.05,
+      "unfaithful_hit": 0.34
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.105,
+      "faithful_given_grounded": 0.105,
+      "faithful_given_hit": 0.125
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_100\\A",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.45,
+      "f1": 0.32731954887218057,
+      "any_faithful": 0.11,
+      "faithful_hit": 0.04,
+      "unfaithful_hit": 0.41
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.09,
+      "faithful_given_grounded": 0.09,
+      "faithful_given_hit": 0.0625
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_100\\A_multi",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.43,
+      "f1": 0.3383195488721805,
+      "any_faithful": 0.11,
+      "faithful_hit": 0.03,
+      "unfaithful_hit": 0.4
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.085,
+      "faithful_given_grounded": 0.085,
+      "faithful_given_hit": 0.04285714285714286
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_100\\B",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.41,
+      "f1": 0.3146052631578948,
+      "any_faithful": 0.22,
+      "faithful_hit": 0.1,
+      "unfaithful_hit": 0.31
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.18,
+      "faithful_given_grounded": 0.18,
+      "faithful_given_hit": 0.15384615384615385
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_100\\C",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.45,
+      "f1": 0.33748621553884717,
+      "any_faithful": 0.36,
+      "faithful_hit": 0.21,
+      "unfaithful_hit": 0.24
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.285,
+      "faithful_given_grounded": 0.285,
+      "faithful_given_hit": 0.3333333333333333
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_100\\D",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.42,
+      "f1": 0.3158195488721805,
+      "any_faithful": 0.32,
+      "faithful_hit": 0.17,
+      "unfaithful_hit": 0.25
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.265,
+      "faithful_given_grounded": 0.265,
+      "faithful_given_hit": 0.27692307692307694
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_100\\E",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.45,
+      "f1": 0.33748621553884717,
+      "any_faithful": 0.34,
+      "faithful_hit": 0.18,
+      "unfaithful_hit": 0.27
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.28,
+      "faithful_given_grounded": 0.28,
+      "faithful_given_hit": 0.2753623188405797
+    }
+  }
+]
