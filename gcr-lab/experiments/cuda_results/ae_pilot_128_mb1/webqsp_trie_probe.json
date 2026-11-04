@@ -1,0 +1,508 @@
+{
+  "dataset": "rmanluo/RoG-webqsp",
+  "revision": "c0632533135a06f8c5d536b420deec5fcb5c58f3",
+  "split_size": 1628,
+  "counts": [
+    {
+      "id": "WebQTest-0",
+      "walks_2": 12960,
+      "walks_3": 8194339
+    },
+    {
+      "id": "WebQTest-1",
+      "walks_2": 6698,
+      "walks_3": 168322
+    },
+    {
+      "id": "WebQTest-3",
+      "walks_2": 3611,
+      "walks_3": 94493
+    },
+    {
+      "id": "WebQTest-6",
+      "walks_2": 1349,
+      "walks_3": 52712
+    },
+    {
+      "id": "WebQTest-7",
+      "walks_2": 2313,
+      "walks_3": 27483
+    },
+    {
+      "id": "WebQTest-8",
+      "walks_2": 10426,
+      "walks_3": 692723
+    },
+    {
+      "id": "WebQTest-9",
+      "walks_2": 9930,
+      "walks_3": 1155691
+    },
+    {
+      "id": "WebQTest-12",
+      "walks_2": 21251,
+      "walks_3": 1600071
+    },
+    {
+      "id": "WebQTest-13",
+      "walks_2": 12337,
+      "walks_3": 1691973
+    },
+    {
+      "id": "WebQTest-14",
+      "walks_2": 563,
+      "walks_3": 6738
+    },
+    {
+      "id": "WebQTest-16",
+      "walks_2": 22840,
+      "walks_3": 12810950
+    },
+    {
+      "id": "WebQTest-19",
+      "walks_2": 20482,
+      "walks_3": 1655397
+    },
+    {
+      "id": "WebQTest-20",
+      "walks_2": 12116,
+      "walks_3": 913278
+    },
+    {
+      "id": "WebQTest-21",
+      "walks_2": 10133,
+      "walks_3": 514647
+    },
+    {
+      "id": "WebQTest-22",
+      "walks_2": 11910,
+      "walks_3": 11096998
+    },
+    {
+      "id": "WebQTest-23",
+      "walks_2": 14083,
+      "walks_3": 1021441
+    },
+    {
+      "id": "WebQTest-24",
+      "walks_2": 30733,
+      "walks_3": 3170843
+    },
+    {
+      "id": "WebQTest-26",
+      "walks_2": 12356,
+      "walks_3": 1864906
+    },
+    {
+      "id": "WebQTest-28",
+      "walks_2": 1076,
+      "walks_3": 10849
+    },
+    {
+      "id": "WebQTest-31",
+      "walks_2": 1476,
+      "walks_3": 60503
+    },
+    {
+      "id": "WebQTest-32",
+      "walks_2": 4899,
+      "walks_3": 27609
+    },
+    {
+      "id": "WebQTest-33",
+      "walks_2": 14078,
+      "walks_3": 8185614
+    },
+    {
+      "id": "WebQTest-34",
+      "walks_2": 2344,
+      "walks_3": 31077
+    },
+    {
+      "id": "WebQTest-35",
+      "walks_2": 6128,
+      "walks_3": 241553
+    },
+    {
+      "id": "WebQTest-36",
+      "walks_2": 7810,
+      "walks_3": 192676
+    },
+    {
+      "id": "WebQTest-37",
+      "walks_2": 18843,
+      "walks_3": 1063426
+    },
+    {
+      "id": "WebQTest-38",
+      "walks_2": 9392,
+      "walks_3": 1918593
+    },
+    {
+      "id": "WebQTest-39",
+      "walks_2": 6588,
+      "walks_3": 145724
+    },
+    {
+      "id": "WebQTest-41",
+      "walks_2": 3326,
+      "walks_3": 125656
+    },
+    {
+      "id": "WebQTest-42",
+      "walks_2": 15722,
+      "walks_3": 1719293
+    },
+    {
+      "id": "WebQTest-43",
+      "walks_2": 2006,
+      "walks_3": 36283
+    },
+    {
+      "id": "WebQTest-44",
+      "walks_2": 20968,
+      "walks_3": 1772155
+    },
+    {
+      "id": "WebQTest-45",
+      "walks_2": 25300,
+      "walks_3": 3773621
+    },
+    {
+      "id": "WebQTest-46",
+      "walks_2": 7115,
+      "walks_3": 161064
+    },
+    {
+      "id": "WebQTest-47",
+      "walks_2": 12865,
+      "walks_3": 1023272
+    },
+    {
+      "id": "WebQTest-48",
+      "walks_2": 1084,
+      "walks_3": 28787
+    },
+    {
+      "id": "WebQTest-49",
+      "walks_2": 6848,
+      "walks_3": 419052
+    },
+    {
+      "id": "WebQTest-51",
+      "walks_2": 315,
+      "walks_3": 1935
+    },
+    {
+      "id": "WebQTest-52",
+      "walks_2": 12637,
+      "walks_3": 718972
+    },
+    {
+      "id": "WebQTest-54",
+      "walks_2": 7956,
+      "walks_3": 832501
+    },
+    {
+      "id": "WebQTest-55",
+      "walks_2": 9007,
+      "walks_3": 1458645
+    },
+    {
+      "id": "WebQTest-56",
+      "walks_2": 5482,
+      "walks_3": 183079
+    },
+    {
+      "id": "WebQTest-58",
+      "walks_2": 4299,
+      "walks_3": 133952
+    },
+    {
+      "id": "WebQTest-59",
+      "walks_2": 16881,
+      "walks_3": 2067462
+    },
+    {
+      "id": "WebQTest-60",
+      "walks_2": 13348,
+      "walks_3": 788723
+    },
+    {
+      "id": "WebQTest-61",
+      "walks_2": 16927,
+      "walks_3": 8029268
+    },
+    {
+      "id": "WebQTest-62",
+      "walks_2": 4611,
+      "walks_3": 138033
+    },
+    {
+      "id": "WebQTest-63",
+      "walks_2": 20780,
+      "walks_3": 2181793
+    },
+    {
+      "id": "WebQTest-64",
+      "walks_2": 17695,
+      "walks_3": 1852080
+    },
+    {
+      "id": "WebQTest-65",
+      "walks_2": 11595,
+      "walks_3": 942646
+    },
+    {
+      "id": "WebQTest-66",
+      "walks_2": 17760,
+      "walks_3": 3894351
+    },
+    {
+      "id": "WebQTest-67",
+      "walks_2": 6588,
+      "walks_3": 255397
+    },
+    {
+      "id": "WebQTest-68",
+      "walks_2": 4117,
+      "walks_3": 118950
+    },
+    {
+      "id": "WebQTest-69",
+      "walks_2": 1965,
+      "walks_3": 46801
+    },
+    {
+      "id": "WebQTest-71",
+      "walks_2": 5043,
+      "walks_3": 627108
+    },
+    {
+      "id": "WebQTest-72",
+      "walks_2": 7762,
+      "walks_3": 212121
+    },
+    {
+      "id": "WebQTest-73",
+      "walks_2": 98,
+      "walks_3": 668
+    },
+    {
+      "id": "WebQTest-74",
+      "walks_2": 10426,
+      "walks_3": 692723
+    },
+    {
+      "id": "WebQTest-75",
+      "walks_2": 5750,
+      "walks_3": 409821
+    },
+    {
+      "id": "WebQTest-76",
+      "walks_2": 10166,
+      "walks_3": 903341
+    },
+    {
+      "id": "WebQTest-77",
+      "walks_2": 23944,
+      "walks_3": 10834867
+    },
+    {
+      "id": "WebQTest-78",
+      "walks_2": 4312,
+      "walks_3": 75849
+    },
+    {
+      "id": "WebQTest-79",
+      "walks_2": 9590,
+      "walks_3": 405783
+    },
+    {
+      "id": "WebQTest-80",
+      "walks_2": 5045,
+      "walks_3": 147059
+    },
+    {
+      "id": "WebQTest-82",
+      "walks_2": 15262,
+      "walks_3": 1170648
+    },
+    {
+      "id": "WebQTest-83",
+      "walks_2": 7672,
+      "walks_3": 207444
+    },
+    {
+      "id": "WebQTest-84",
+      "walks_2": 27546,
+      "walks_3": 4901170
+    },
+    {
+      "id": "WebQTest-85",
+      "walks_2": 22351,
+      "walks_3": 1926381
+    },
+    {
+      "id": "WebQTest-86",
+      "walks_2": 6190,
+      "walks_3": 1042524
+    },
+    {
+      "id": "WebQTest-87",
+      "walks_2": 15598,
+      "walks_3": 2299126
+    },
+    {
+      "id": "WebQTest-88",
+      "walks_2": 7690,
+      "walks_3": 118134
+    },
+    {
+      "id": "WebQTest-89",
+      "walks_2": 3719,
+      "walks_3": 58596
+    },
+    {
+      "id": "WebQTest-90",
+      "walks_2": 4198,
+      "walks_3": 116527
+    },
+    {
+      "id": "WebQTest-91",
+      "walks_2": 23063,
+      "walks_3": 4031707
+    },
+    {
+      "id": "WebQTest-93",
+      "walks_2": 9973,
+      "walks_3": 3472538
+    },
+    {
+      "id": "WebQTest-94",
+      "walks_2": 2312,
+      "walks_3": 67539
+    },
+    {
+      "id": "WebQTest-95",
+      "walks_2": 17710,
+      "walks_3": 1185828
+    },
+    {
+      "id": "WebQTest-96",
+      "walks_2": 9930,
+      "walks_3": 1155691
+    },
+    {
+      "id": "WebQTest-97",
+      "walks_2": 7727,
+      "walks_3": 706662
+    },
+    {
+      "id": "WebQTest-98",
+      "walks_2": 12337,
+      "walks_3": 1691973
+    },
+    {
+      "id": "WebQTest-99",
+      "walks_2": 10732,
+      "walks_3": 4307839
+    },
+    {
+      "id": "WebQTest-100",
+      "walks_2": 20642,
+      "walks_3": 5950269
+    },
+    {
+      "id": "WebQTest-102",
+      "walks_2": 3401,
+      "walks_3": 57939
+    },
+    {
+      "id": "WebQTest-103",
+      "walks_2": 7888,
+      "walks_3": 1105596
+    },
+    {
+      "id": "WebQTest-104",
+      "walks_2": 8087,
+      "walks_3": 656880
+    },
+    {
+      "id": "WebQTest-105",
+      "walks_2": 9023,
+      "walks_3": 10208001
+    },
+    {
+      "id": "WebQTest-106",
+      "walks_2": 10866,
+      "walks_3": 723151
+    },
+    {
+      "id": "WebQTest-107",
+      "walks_2": 17190,
+      "walks_3": 1977925
+    },
+    {
+      "id": "WebQTest-108",
+      "walks_2": 17710,
+      "walks_3": 1185828
+    },
+    {
+      "id": "WebQTest-109",
+      "walks_2": 1631,
+      "walks_3": 33699
+    },
+    {
+      "id": "WebQTest-110",
+      "walks_2": 3214,
+      "walks_3": 261801
+    },
+    {
+      "id": "WebQTest-111",
+      "walks_2": 5219,
+      "walks_3": 390104
+    },
+    {
+      "id": "WebQTest-112",
+      "walks_2": 7708,
+      "walks_3": 294366
+    },
+    {
+      "id": "WebQTest-114",
+      "walks_2": 4791,
+      "walks_3": 159567
+    },
+    {
+      "id": "WebQTest-115",
+      "walks_2": 3214,
+      "walks_3": 261801
+    },
+    {
+      "id": "WebQTest-116",
+      "walks_2": 15722,
+      "walks_3": 1719293
+    },
+    {
+      "id": "WebQTest-118",
+      "walks_2": 8413,
+      "walks_3": 197145
+    },
+    {
+      "id": "WebQTest-119",
+      "walks_2": 3076,
+      "walks_3": 80294
+    },
+    {
+      "id": "WebQTest-121",
+      "walks_2": 5788,
+      "walks_3": 583147
+    },
+    {
+      "id": "WebQTest-122",
+      "walks_2": 2073,
+      "walks_3": 16026
+    }
+  ],
+  "note": "Exact unique triple-walk counts for multi graph; no token trie constructed."
+}

@@ -1,0 +1,135 @@
+[
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_pilot_128_mb1\\cwq_100\\official",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.39,
+      "f1": 0.28398621553884723,
+      "any_faithful": 0.11,
+      "faithful_hit": 0.05,
+      "unfaithful_hit": 0.34
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.105,
+      "faithful_given_grounded": 0.105,
+      "faithful_given_hit": 0.125
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_pilot_128_mb1\\cwq_100\\A",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.4,
+      "f1": 0.2906528822055139,
+      "any_faithful": 0.12,
+      "faithful_hit": 0.06,
+      "unfaithful_hit": 0.34
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.11,
+      "faithful_given_grounded": 0.11,
+      "faithful_given_hit": 0.14035087719298245
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_pilot_128_mb1\\cwq_100\\A_multi",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.41,
+      "f1": 0.31831954887218056,
+      "any_faithful": 0.12,
+      "faithful_hit": 0.05,
+      "unfaithful_hit": 0.36
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.1,
+      "faithful_given_grounded": 0.1,
+      "faithful_given_hit": 0.09230769230769231
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_pilot_128_mb1\\cwq_100\\B",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.45,
+      "f1": 0.3433195488721805,
+      "any_faithful": 0.1,
+      "faithful_hit": 0.04,
+      "unfaithful_hit": 0.41
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.08,
+      "faithful_given_grounded": 0.08,
+      "faithful_given_hit": 0.057971014492753624
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_pilot_128_mb1\\cwq_100\\C",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.45,
+      "f1": 0.33665288220551387,
+      "any_faithful": 0.1,
+      "faithful_hit": 0.04,
+      "unfaithful_hit": 0.41
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.08,
+      "faithful_given_grounded": 0.08,
+      "faithful_given_hit": 0.05970149253731343
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_pilot_128_mb1\\cwq_100\\D",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.45,
+      "f1": 0.3433195488721805,
+      "any_faithful": 0.1,
+      "faithful_hit": 0.04,
+      "unfaithful_hit": 0.41
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.08,
+      "faithful_given_grounded": 0.08,
+      "faithful_given_hit": 0.057971014492753624
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_pilot_128_mb1\\cwq_100\\E",
+    "questions": 100,
+    "missing_gold": 0,
+    "candidates": 200,
+    "question": {
+      "hit": 0.45,
+      "f1": 0.33665288220551387,
+      "any_faithful": 0.1,
+      "faithful_hit": 0.04,
+      "unfaithful_hit": 0.41
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.08,
+      "faithful_given_grounded": 0.08,
+      "faithful_given_hit": 0.05970149253731343
+    }
+  }
+]

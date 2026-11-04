@@ -103,3 +103,43 @@ D           500  0.452  0.325  0.200   0.252  0.288
 ```
 
 - [2026-11-05 03:38:58] Stage 2 done in 201 min, 2 failed: [{"dataset": "webqsp", "limit": 500, "run": "official", "reason": "exit code 1", "log": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\webqsp_500\\official_failed.log"}, {"dataset": "webqsp", "limit": 500, "run": "A", "reason": "exit code 1", "log": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\webqsp_500\\A_failed.log"}]
+- [2026-11-05 03:38:59] Committed
+- [2026-11-05 03:39:06] Pushed
+- [2026-11-05 03:39:06] Stage 3: ae_pilot_128_mb1, first 100, runs ['A', 'B', 'C', 'D', 'E']
+
+- [2026-11-05 03:39:06] Skipping completed webqsp/A
+- [2026-11-05 03:39:06] Skipping completed webqsp/B
+- [2026-11-05 03:39:06] Skipping completed webqsp/C
+- [2026-11-05 03:39:06] Skipping completed webqsp/D
+- [2026-11-05 03:39:06] Skipping completed webqsp/E
+```
+run           n    hit     f1  f.hit unf.hit  faith
+official    100  0.630  0.380  0.530   0.100  0.520
+A           100  0.660  0.407  0.560   0.100  0.520
+A_multi     100  0.650  0.399  0.580   0.070  0.545
+B           100  0.670  0.415  0.590   0.080  0.545
+C           100  0.650  0.405  0.570   0.080  0.535
+D           100  0.650  0.405  0.570   0.080  0.535
+E           100  0.650  0.402  0.570   0.080  0.530
+```
+
+- [2026-11-05 03:39:06] Skipping completed cwq/A
+- [2026-11-05 03:39:06] Skipping completed cwq/B
+- [2026-11-05 03:39:06] Skipping completed cwq/C
+- [2026-11-05 03:39:06] Archived incomplete cwq/D -> D_failed
+- [2026-11-05 03:39:06] Starting cwq/D
+- [2026-11-05 03:43:27] Completed cwq/D
+- [2026-11-05 03:43:27] Starting cwq/E
+- [2026-11-05 03:47:15] Completed cwq/E
+```
+run           n    hit     f1  f.hit unf.hit  faith
+official    100  0.390  0.284  0.050   0.340  0.105
+A           100  0.400  0.291  0.060   0.340  0.110
+A_multi     100  0.410  0.318  0.050   0.360  0.100
+B           100  0.450  0.343  0.040   0.410  0.080
+C           100  0.450  0.337  0.040   0.410  0.080
+D           100  0.450  0.343  0.040   0.410  0.080
+E           100  0.450  0.337  0.040   0.410  0.080
+```
+
+- [2026-11-05 03:47:15] Stage 3 done in 8 min, 0 failed
