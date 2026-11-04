@@ -56,3 +56,50 @@ E           100  0.450  0.337  0.180   0.270  0.280
 ```
 
 - [2026-11-05 00:17:23] Stage 1 done in 88 min, 0 failed
+- [2026-11-05 00:17:24] Committed
+- [2026-11-05 00:17:29] Pushed
+- [2026-11-05 00:17:29] Stage 2: ae_full, first 500, runs ['official', 'A', 'A_multi', 'B', 'C', 'D']
+
+- [2026-11-05 00:17:29] Starting webqsp/official
+- [2026-11-05 00:33:20] FAILED webqsp/official: exit code 1; kept as official_failed
+- [2026-11-05 00:33:20] Starting webqsp/A
+- [2026-11-05 00:48:46] FAILED webqsp/A: exit code 1; kept as A_failed
+- [2026-11-05 00:48:46] Starting webqsp/A_multi
+- [2026-11-05 01:05:28] Completed webqsp/A_multi
+- [2026-11-05 01:05:28] Starting webqsp/B
+- [2026-11-05 01:22:39] Completed webqsp/B
+- [2026-11-05 01:22:39] Starting webqsp/C
+- [2026-11-05 01:39:10] Completed webqsp/C
+- [2026-11-05 01:39:10] Starting webqsp/D
+- [2026-11-05 01:56:04] Completed webqsp/D
+```
+run           n    hit     f1  f.hit unf.hit  faith
+A_multi     500  0.724  0.454  0.626   0.098  0.588
+B           500  0.664  0.399  0.452   0.212  0.422
+C           500  0.690  0.424  0.588   0.102  0.556
+D           500  0.694  0.425  0.598   0.096  0.566
+```
+
+- [2026-11-05 01:56:05] Starting cwq/official
+- [2026-11-05 02:12:59] Completed cwq/official
+- [2026-11-05 02:12:59] Starting cwq/A
+- [2026-11-05 02:29:21] Completed cwq/A
+- [2026-11-05 02:29:21] Starting cwq/A_multi
+- [2026-11-05 02:46:46] Completed cwq/A_multi
+- [2026-11-05 02:46:46] Starting cwq/B
+- [2026-11-05 03:04:10] Completed cwq/B
+- [2026-11-05 03:04:10] Starting cwq/C
+- [2026-11-05 03:21:47] Completed cwq/C
+- [2026-11-05 03:21:47] Starting cwq/D
+- [2026-11-05 03:38:58] Completed cwq/D
+```
+run           n    hit     f1  f.hit unf.hit  faith
+official    500  0.382  0.270  0.064   0.318  0.127
+A           500  0.438  0.309  0.076   0.362  0.132
+A_multi     500  0.454  0.334  0.074   0.380  0.130
+B           500  0.440  0.315  0.124   0.316  0.185
+C           500  0.456  0.330  0.202   0.254  0.291
+D           500  0.452  0.325  0.200   0.252  0.288
+```
+
+- [2026-11-05 03:38:58] Stage 2 done in 201 min, 2 failed: [{"dataset": "webqsp", "limit": 500, "run": "official", "reason": "exit code 1", "log": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\webqsp_500\\official_failed.log"}, {"dataset": "webqsp", "limit": 500, "run": "A", "reason": "exit code 1", "log": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\webqsp_500\\A_failed.log"}]

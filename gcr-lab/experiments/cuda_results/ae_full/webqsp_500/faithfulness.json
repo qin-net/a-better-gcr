@@ -1,0 +1,78 @@
+[
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\webqsp_500\\A_multi",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.724,
+      "f1": 0.4537381455620156,
+      "any_faithful": 0.67,
+      "faithful_hit": 0.626,
+      "unfaithful_hit": 0.098
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.588,
+      "faithful_given_grounded": 0.588,
+      "faithful_given_hit": 0.8344827586206897
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\webqsp_500\\B",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.664,
+      "f1": 0.39856571186060186,
+      "any_faithful": 0.512,
+      "faithful_hit": 0.452,
+      "unfaithful_hit": 0.212
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.422,
+      "faithful_given_grounded": 0.422,
+      "faithful_given_hit": 0.5901328273244781
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\webqsp_500\\C",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.69,
+      "f1": 0.4237873402797552,
+      "any_faithful": 0.656,
+      "faithful_hit": 0.588,
+      "unfaithful_hit": 0.102
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.556,
+      "faithful_given_grounded": 0.556,
+      "faithful_given_hit": 0.7731397459165155
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\webqsp_500\\D",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.694,
+      "f1": 0.4251534077900382,
+      "any_faithful": 0.666,
+      "faithful_hit": 0.598,
+      "unfaithful_hit": 0.096
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.566,
+      "faithful_given_grounded": 0.566,
+      "faithful_given_hit": 0.7880434782608695
+    }
+  }
+]
