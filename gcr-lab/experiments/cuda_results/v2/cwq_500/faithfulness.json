@@ -1,0 +1,97 @@
+[
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_500\\A_multi",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.454,
+      "f1": 0.3335000835421888,
+      "any_faithful": 0.162,
+      "faithful_hit": 0.074,
+      "unfaithful_hit": 0.38
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.13,
+      "faithful_given_grounded": 0.13,
+      "faithful_given_hit": 0.12181303116147309
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_500\\C",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.456,
+      "f1": 0.3299032581453634,
+      "any_faithful": 0.372,
+      "faithful_hit": 0.202,
+      "unfaithful_hit": 0.254
+    },
+    "candidate": {
+      "grounded": 0.998,
+      "faithful": 0.291,
+      "faithful_given_grounded": 0.29158316633266534,
+      "faithful_given_hit": 0.33994334277620397
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\ae_full\\cwq_500\\D",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.452,
+      "f1": 0.3249524644945696,
+      "any_faithful": 0.362,
+      "faithful_hit": 0.2,
+      "unfaithful_hit": 0.252
+    },
+    "candidate": {
+      "grounded": 0.998,
+      "faithful": 0.288,
+      "faithful_given_grounded": 0.28857715430861725,
+      "faithful_given_hit": 0.3400576368876081
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_500\\C2",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.462,
+      "f1": 0.32668421052631585,
+      "any_faithful": 0.312,
+      "faithful_hit": 0.16,
+      "unfaithful_hit": 0.302
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.248,
+      "faithful_given_grounded": 0.248,
+      "faithful_given_hit": 0.2745664739884393
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_500\\D2",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.452,
+      "f1": 0.3152223057644111,
+      "any_faithful": 0.3,
+      "faithful_hit": 0.148,
+      "unfaithful_hit": 0.304
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.239,
+      "faithful_given_grounded": 0.239,
+      "faithful_given_hit": 0.2702702702702703
+    }
+  }
+]
