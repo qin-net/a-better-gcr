@@ -227,3 +227,24 @@ A_multi_s44   hit: +38/-36 p=0.91  faithful_hit: +11/-72 p=3.9e-12
 ```
 
 - [2026-11-06 06:09:31] Stage 3 done in 201 min, 0 failed
+- [2026-11-06 06:09:33] Committed
+- [2026-11-06 06:09:40] Pushed
+- [2026-11-06 06:09:40] Stage 4: train nothing, eval ['A_multi', 'C2'] on ['webqsp'], first 1628
+
+- [2026-11-06 06:09:40] Starting webqsp/A_multi
+- [2026-11-06 07:00:38] Completed webqsp/A_multi
+- [2026-11-06 07:00:38] Starting webqsp/C2
+- [2026-11-06 07:52:23] Completed webqsp/C2
+```
+run             n    hit     f1  f.hit unf.hit  faith
+A_multi      1628  0.695  0.427  0.592   0.103  0.569
+C2           1628  0.693  0.420  0.611   0.082  0.602
+```
+
+```
+webqsp_1628
+paired vs A_multi (gained/lost, exact McNemar p)
+C2            hit: +78/-81 p=0.87  faithful_hit: +107/-76 p=0.026
+```
+
+- [2026-11-06 07:52:25] Stage 4 done in 103 min, 0 failed
