@@ -93,5 +93,43 @@
       "faithful_given_grounded": 0.239,
       "faithful_given_hit": 0.2702702702702703
     }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_500\\C_wq",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.466,
+      "f1": 0.3360683375104428,
+      "any_faithful": 0.39,
+      "faithful_hit": 0.224,
+      "unfaithful_hit": 0.242
+    },
+    "candidate": {
+      "grounded": 0.998,
+      "faithful": 0.31,
+      "faithful_given_grounded": 0.3106212424849699,
+      "faithful_given_hit": 0.3715083798882682
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_500\\C_fwd",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.458,
+      "f1": 0.3213508771929825,
+      "any_faithful": 0.302,
+      "faithful_hit": 0.148,
+      "unfaithful_hit": 0.31
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.242,
+      "faithful_given_grounded": 0.242,
+      "faithful_given_hit": 0.26176470588235295
+    }
   }
 ]
