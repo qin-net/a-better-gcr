@@ -57,9 +57,14 @@ def archive(output):
 
 
 def evaluate(pilot, output, datasets=('webqsp', 'cwq'), limit=100, only=None,
-             keep_going=False, seconds_per_question=None, on_event=print):
-    """Run and score. Returns {dataset: score results} and a list of failures."""
-    known = [r[0] for r in runs(pilot)]
+             keep_going=False, seconds_per_question=None, on_event=print, plan=None, references=()):
+    """Run and score. Returns {dataset: score results} and a list of failures.
+
+    plan: (run, adapter, graph, hops) rows instead of runs(pilot).
+    references: dirs (may contain {dataset} and {limit}) of earlier runs to score alongside.
+    """
+    plan = list(plan or runs(pilot))
+    known = [r[0] for r in plan]
     if only and set(only) - set(known):
         raise ValueError(f'unknown runs {sorted(set(only) - set(known))}; choose from {known}')
     workflow = Path(__file__).resolve().parent
@@ -67,7 +72,7 @@ def evaluate(pilot, output, datasets=('webqsp', 'cwq'), limit=100, only=None,
     for dataset in datasets:
         name, revision = DATASETS[dataset]
         root = output / f'{dataset}_{limit}'
-        for run, adapter, graph, hops in runs(pilot):
+        for run, adapter, graph, hops in plan:
             if only and run not in only:
                 continue
             target = root / run
@@ -108,7 +113,8 @@ def evaluate(pilot, output, datasets=('webqsp', 'cwq'), limit=100, only=None,
                 continue
             on_event(f'Completed {dataset}/{run}')
         # Score every completed run of this dataset, including ones from earlier invocations.
-        done = [root / r for r in known if complete(root / r)]
+        done = [Path(str(r).format(dataset=dataset, limit=limit)) for r in references]
+        done = [d for d in done if complete(d)] + [root / r for r in known if complete(root / r)]
         if done:
             try:
                 gold = score_faithfulness.load_gold(score_faithfulness.DEFAULT_GOLD)
@@ -125,10 +131,10 @@ def evaluate(pilot, output, datasets=('webqsp', 'cwq'), limit=100, only=None,
 
 
 def table(results):
-    lines = [f"{'run':10s} {'n':>4s} {'hit':>6s} {'f1':>6s} {'f.hit':>6s} {'unf.hit':>7s} {'faith':>6s}"]
+    lines = [f"{'run':12s} {'n':>4s} {'hit':>6s} {'f1':>6s} {'f.hit':>6s} {'unf.hit':>7s} {'faith':>6s}"]
     for r in results:
         q, c = r['question'], r['candidate']
-        lines.append(f"{Path(r['run']).name:10s} {r['questions']:4d} {q['hit']:6.3f} {q['f1']:6.3f} "
+        lines.append(f"{Path(r['run']).name:12s} {r['questions']:4d} {q['hit']:6.3f} {q['f1']:6.3f} "
                      f"{q['faithful_hit']:6.3f} {q['unfaithful_hit']:7.3f} {c['faithful']:6.3f}")
     return '\n'.join(lines)
 

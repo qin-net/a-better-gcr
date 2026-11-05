@@ -1,4 +1,4 @@
-"""Single-GPU continuation training; one deterministic shortest path per question."""
+"""Single-GPU continuation training; one deterministic path per question (see order_paths)."""
 import argparse
 import gzip
 import hashlib
@@ -56,6 +56,20 @@ def read_packed(path, exclude_seeds=()):
     return rows, dropped
 
 
+def order_paths(sample, paths):
+    """Non-empty paths, the one to train on first.
+
+    v2 packed sets (gcr-lab/train_variants/build_v2.py, path_order='ranked')
+    store paths best first: SPARQL-faithful, then fewest reversed steps.
+    Everything else falls back to shortest, then alphabetical — which on the
+    multi-relation graph tends to pick reversed steps (FINDINGS.md section R).
+    """
+    paths = [path for path in paths if path]
+    if sample.get('path_order') == 'ranked':
+        return paths
+    return sorted(paths, key=lambda path: (len(path), path_to_string(path)))
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', type=Path, required=True)
@@ -75,6 +89,7 @@ def main():
                         'shortest paths in the WebQSP train subgraphs')
     p.add_argument('--paths-per-question', type=int, default=1,
                    help='Training sequences per question, shortest paths first (default 1)')
+    p.add_argument('--seed', type=int, default=42, help='LoRA init and data order seed')
     p.add_argument('--keep-test-seeds', action='store_true',
                    help='With --train-data, keep CWQ questions built from WebQSP test questions '
                         '(the official GCR mix); dropped by default')
@@ -89,7 +104,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=True)
     if any(args.output.iterdir()):
         raise FileExistsError('Use a fresh output directory')
-    set_seed(42)
+    set_seed(args.seed)
     tokenizer = AutoTokenizer.from_pretrained(MODEL, revision=MODEL_REV)
     files = HfApi().list_repo_files(DATA, repo_type='dataset', revision=DATA_REV)
     stats, ids = {}, {}
@@ -108,7 +123,7 @@ def main():
                 paths = sample['paths']
             else:
                 paths = get_truth_paths(sample['q_entity'], sample['a_entity'], build_graph(sample['graph']))
-            paths = sorted((path for path in paths if path), key=lambda path: (len(path), path_to_string(path)))
+            paths = order_paths(sample, paths)
             if not paths:
                 skipped['no_path'] += 1
                 continue
@@ -167,7 +182,7 @@ def main():
                 per_device_train_batch_size=args.batch_size, per_device_eval_batch_size=1,
                 gradient_accumulation_steps=args.gradient_accumulation, learning_rate=args.learning_rate, warmup_ratio=0.03,
                 lr_scheduler_type='cosine', bf16=True, report_to='none', save_strategy='epoch' if args.select_best else 'no',
-                logging_steps=50, dataloader_num_workers=0, seed=42, disable_tqdm=True,
+                logging_steps=50, dataloader_num_workers=0, seed=args.seed, disable_tqdm=True,
                 eval_strategy='epoch' if args.select_best else 'no',
                 load_best_model_at_end=args.select_best, metric_for_best_model='eval_loss',
                 greater_is_better=False, save_total_limit=1)
@@ -175,7 +190,7 @@ def main():
     manifest = dict(status='running', model=MODEL, model_revision=MODEL_REV, dataset_revision=DATA_REV,
                     preprocessing=dict(max_length=args.max_length, validation_limit=args.validation_limit,
                                        train_data=str(args.train_data) if args.train_data else None,
-                                       path_policy='shortest_nonempty_paths_per_question',
+                                       path_policy='first_stored_path_if_ranked_else_shortest',
                                        paths_per_question=args.paths_per_question),
                     data=stats, sample_ids=ids, training_args=cfg.to_dict(),
                     trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),

@@ -4,6 +4,14 @@
 SPARQL 约束训练（C/D）让忠实命中从 7.4% 升到 20%（p<1e-12），Hit 不变；代价是 WebQSP 的 Hit
 降约 3 个百分点。换图本身无影响；B 有害；128 步先导看不到效果。下一步见文末 §6。
 
+**2026-11-05 晚**：WebQSP 的 Hit 下降查明是训练路径构造的 bug（FINDINGS R），已出修正版训练集
+C2/D2 和两组消融。**今晚 GPU 只跑一条命令，全部说明在 [`train_variants/V2_NIGHT.md`](train_variants/V2_NIGHT.md)**：
+
+```powershell
+git pull
+.venv/Scripts/python.exe -u graph-constrained-reasoning/workflow/run_v2_night.py --push --hours 10
+```
+
 以下 §1–§5 是 11-04 的原文，保留作记录。
 
 本文件给 GPU 电脑上的 agent 照着执行，也是给人看的阶段小结。§3 是今晚要跑的全部内容。
@@ -121,8 +129,13 @@ git pull
 - `cuda_baseline.py`：2 跳内没有任何路径的题（空 trie）记为 `no_trie`，计入分母但不再让整组失败。
   11-04 WebQSP 500 题的 official 和 A 就是因为一道这样的题（WebQTest-521）被标成失败，结果有效。
 
-下一轮 GPU：
+下一轮 GPU（11-05 晚，已改为 v2，见 `train_variants/V2_NIGHT.md`）：
 
-1. C、D、A_multi 在 WebQSP 与 CWQ **全量测试集**上评测，各 3 个 seed（需要先训练 seed 43、44）。
-2. 补 E 与 E_hops3 的 500 题评测，回答 §2 第 4 问。
-3. 针对 WebQSP 的 Hit 下降：试 A+C 混合训练集，看能否兼顾两边。
+1. 训练 C2、D2、C_wq、C_fwd，C2 与 A 加 seed 43、44；全部在 WebQSP 与 CWQ 前 500 题评测。
+2. A_multi 与 C2 在 WebQSP 全量 1,628 题上评测。
+
+之后：
+
+- 若 C2 在 WebQSP 不再掉点：C2 在两个数据集全量、3 seed 上出论文主表；E2（≤3 跳）与 3 跳解码。
+- 若仍掉点：试 A+C2 混合训练集。
+- 方向感知的忠实度指标（现在的 `faithful` 不检查方向和顺序）。

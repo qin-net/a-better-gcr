@@ -1,5 +1,9 @@
 # 训练侧修复：A–E 训练集
 
+> **2026-11-05：C/D/E 的训练路径选择有 bug，已出 v2（C2/D2/C_wq/C_fwd）。** 见文末“v2”一节、
+> [V2_NIGHT.md](V2_NIGHT.md)（今晚的实验）和 `experiments/FINDINGS.md` R 节。下面五组的描述
+> 保留原样作记录，其中“WebQSP 没有 SPARQL”是错的。
+
 ## 五组设置
 
 | 组 | 训练路径 | 推理（`cuda_baseline.py`） | 题数 | 路径数（每题 ≤10） |
@@ -99,3 +103,38 @@ A_multi（多重图，把“换图”与“换数据”分开）、B–E（多�
 
 `build_variants.py` 写出未截断的 `out/train_variants/<V>/{cwq,webqsp}.jsonl`（约 300MB，不入库），
 `pack.py` 截断并压缩到 `data/`。
+
+## v2：修正训练路径选择（2026-11-05）
+
+11-04 的 C/D/E 有两处问题（FINDINGS R）：
+
+1. **WebQSP 没做 SPARQL 约束**。原始 WebQSP 其实带 SPARQL（`data/webqsp_raw/WebQSP/data/WebQSP.train.json`
+   的 `Parses`），`build_variants.py` 误以为没有，WebQSP 部分直接用了 B（多重图无约束最短路），
+   被选中训练的路径只有 29.8% 忠实（A 是 73.6%）。
+2. **每题那一条训练路径按“最短 + 字母序”挑**（`train_cuda_lora.py`）。多重图上同长度路径很多，
+   字母序会挑到含反向步的路径：WebQSP 59.5%、CWQ 79.2% 的题如此，其中约一半其实有同长度的正向忠实路径。
+   路径文本不标方向，模型学到的就是“逆着边走”的路径。
+
+`build_v2.py` 生成四组（都在多重图 2 跳上训练和推理）：
+
+| 组 | 修 1（WebQSP 约束） | 修 2（排序） | 说明 |
+|---|---|---|---|
+| C_wq | ✓ | | 只修约束 |
+| C_fwd | | ✓（正向优先，不看 SPARQL） | 只修选择 |
+| C2 | ✓ | ✓（忠实优先，再正向优先） | 主方案 |
+| D2 | ✓ | ✓ | C2 + 图池修复 ≤2 跳 |
+
+排序键：`(关系不全在同一个 SPARQL 内, 反向步数, 类型/约束关系个数, 长度, 文本)`，取前 10 条，
+行里带 `"path_order": "ranked"`，`train_cuda_lora.py` 见到这个标记就直接训第一条，不再重排
+（`order_paths`）。旧数据集行为不变。`train_cuda_lora.py` 还新增 `--seed`（默认 42，与以前相同）。
+
+关系用 `build_gold_relations.py` 的正则提取，保留超过三段的关系名（C 用的是三段正则）；
+因此 CWQ 有 1,324 题的关系集合与 C 不同，C_fwd 对这些题按旧正则重算以保证“路径与 C 相同”。
+
+重新生成（CPU，约 8 分钟，`data/v2_stats.json` 记录各组被选路径的忠实率与反向率）：
+
+```bash
+.venv/bin/python -I train_variants/build_v2.py
+```
+
+GPU 上的训练与评测：[V2_NIGHT.md](V2_NIGHT.md)。

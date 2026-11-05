@@ -37,3 +37,13 @@ def test_paths_become_triple_tuples():
     rows, _ = module.read_packed(path)
     assert rows[0]['paths'] == [[('a', 'r', 'x'), ('x', 's', 'c')]]
     assert module.path_to_string(rows[0]['paths'][0]) == 'a -> r -> x -> s -> c'
+
+
+def test_ranked_rows_keep_stored_order_and_others_take_shortest():
+    forward = [('a', 'r', 'x'), ('x', 'z', 'c')]
+    reversed_ = [('a', 'b', 'c')]
+    path = write([dict(id='WebQTrn-1', question='q', q_entity=['a'], a_entity=['c'], path_order='ranked',
+                       ground_truth_paths=[forward, [], reversed_])])
+    rows, _ = module.read_packed(path)
+    assert module.order_paths(rows[0], rows[0]['paths']) == [forward, reversed_]
+    assert module.order_paths({}, [forward, [], reversed_]) == [reversed_, forward]
