@@ -32,3 +32,12 @@ def test_question_counts_unfaithful_hit():
     result = module.score_run(path, {'q1': [{'s.x.y'}]})
     assert result['question']['hit'] == 1 and result['question']['unfaithful_hit'] == 1
     assert result['candidate']['faithful'] == 0.5
+
+
+def test_mcnemar_pairs_by_question_id():
+    base = [{'id': f'q{i}', 'hit': i < 2} for i in range(10)]
+    other = [{'id': f'q{i}', 'hit': i >= 1} for i in reversed(range(10))]
+    gained, lost, p = module.mcnemar(base, other, 'hit')
+    assert (gained, lost) == (8, 1)
+    assert abs(p - 2 * 10 / 2 ** 9) < 1e-12
+    assert module.mcnemar(base, base, 'hit') == (0, 0, 1.0)

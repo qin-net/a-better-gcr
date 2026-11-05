@@ -11,11 +11,12 @@ Per question: hit / f1 exactly as cuda_baseline reports them, plus
   unfaithful_hit  the question is hit, but only through unfaithful candidates.
 
 Usage:
-  python workflow/score_faithfulness.py RUN_DIR [RUN_DIR ...] [--json out.json]
+  python workflow/score_faithfulness.py RUN_DIR [RUN_DIR ...] [--json out.json] [--baseline RUN_DIR]
 """
 import argparse
 import gzip
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -43,7 +44,8 @@ def score_candidate(text, audit, answers, parses):
     return {'grounded': audit['valid'], 'hit': hit, 'faithful': faithful}
 
 
-def score_run(path, gold):
+def score_questions(path, gold):
+    """Per-question and per-candidate labels for one run."""
     path = Path(path)
     if path.is_dir():
         path = path / 'predictions.jsonl'
@@ -59,12 +61,32 @@ def score_run(path, gold):
                                      for t in row['prediction'] if '# Answer:' in t))
         hit = eval_hit(' '.join(answers), row['ground_truth'])
         faithful_hit = any(c['hit'] and c['faithful'] for c in cands)
-        questions.append({'hit': hit, 'f1': eval_f1(answers, row['ground_truth'])[0],
+        questions.append({'id': row['id'], 'hit': hit,
+                          'f1': eval_f1(answers, row['ground_truth'])[0],
                           'any_faithful': any(c['faithful'] for c in cands),
                           'faithful_hit': faithful_hit,
                           'unfaithful_hit': bool(hit) and not faithful_hit})
     if not questions:
         raise ValueError(f'{path}: no question has gold relations')
+    return path, questions, candidates, missing
+
+
+def mcnemar(base, other, key):
+    """Exact two-sided McNemar test on questions both runs answered.
+
+    Returns (gained, lost, p): questions where only `other` / only `base` has `key`.
+    """
+    base = {q['id']: bool(q[key]) for q in base}
+    pairs = [(base[q['id']], bool(q[key])) for q in other if q['id'] in base]
+    gained = sum(not b and o for b, o in pairs)
+    lost = sum(b and not o for b, o in pairs)
+    n = gained + lost
+    p = min(1.0, 2 * sum(math.comb(n, k) for k in range(min(gained, lost) + 1)) / 2 ** n) if n else 1.0
+    return gained, lost, p
+
+
+def score_run(path, gold):
+    path, questions, candidates, missing = score_questions(path, gold)
 
     def rate(rows, key, cond=None):
         rows = [r for r in rows if cond is None or r[cond]]
@@ -85,6 +107,7 @@ def main():
     parser.add_argument('runs', nargs='+', help='cuda_baseline output dirs or predictions.jsonl')
     parser.add_argument('--gold', type=Path, default=DEFAULT_GOLD)
     parser.add_argument('--json', type=Path)
+    parser.add_argument('--baseline', help='run to compare every other run against (paired McNemar)')
     args = parser.parse_args()
     gold = load_gold(args.gold)
     results = [score_run(r, gold) for r in args.runs]
@@ -96,6 +119,16 @@ def main():
               f"{q['faithful_hit']:6.3f} {q['unfaithful_hit']:7.3f} {c['grounded']:6.3f} "
               f"{c['faithful']:6.3f} {c['faithful_given_hit']:6.3f}"
               + (f"  ({r['missing_gold']} without gold)" if r['missing_gold'] else ''))
+    if args.baseline:
+        base = score_questions(args.baseline, gold)[1]
+        print(f"\npaired vs {Path(args.baseline).name} (questions gained/lost, exact McNemar p)")
+        for run in args.runs:
+            if Path(run) == Path(args.baseline):
+                continue
+            other = score_questions(run, gold)[1]
+            print(f"{Path(run).name[:40]:40s}" + ''.join(
+                '  {}: +{}/-{} p={:.2g}'.format(key, *mcnemar(base, other, key))
+                for key in ('hit', 'faithful_hit')))
     if args.json:
         args.json.write_text(json.dumps(results, indent=2), encoding='utf-8')
 

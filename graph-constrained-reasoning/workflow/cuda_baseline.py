@@ -107,6 +107,7 @@ def main():
     torch.cuda.synchronize()
     started = time.perf_counter()
     failures = []
+    no_trie_ids = []
     audits = []
     answer_metrics = []
     with (args.output / "predictions.jsonl").open("w", encoding="utf-8") as out:
@@ -116,10 +117,14 @@ def main():
                 result['generation_details'] = model.last_generation_details
             if result is None:
                 # Keep failures in the metric denominator instead of silently dropping them.
-                failures.append(sample["id"])
+                # An empty trie (no path within --hops of the question entities, e.g.
+                # WebQTest-521 on the directed graph) is a property of the data, not a crash,
+                # so it is recorded but does not fail the run.
+                no_trie = builder.get_graph_index(sample) is None
+                (no_trie_ids if no_trie else failures).append(sample["id"])
                 result = {"id": sample["id"], "question": sample["question"],
                           "prediction": [""], "ground_truth": sample["answer"],
-                          "ground_truth_paths": [], "error": "no_prediction"}
+                          "ground_truth_paths": [], "error": "no_trie" if no_trie else "no_prediction"}
             elif isinstance(result["prediction"], str):
                 result["prediction"] = [result["prediction"]]
             result["path_audit"] = [audit_prediction(text, sample["graph"],
@@ -140,7 +145,7 @@ def main():
                     elapsed_seconds=time.perf_counter() - started,
                     peak_allocated_bytes=torch.cuda.max_memory_allocated(),
                     peak_reserved_bytes=torch.cuda.max_memory_reserved(),
-                    failures=failures, completed_count=len(dataset))
+                    failures=failures, no_trie=no_trie_ids, completed_count=len(dataset))
     manifest["path_audit"] = {"generated_candidates": len(audits),
                               "valid_candidates": sum(a["valid"] for a in audits)}
     manifest["answer_section_metrics"] = {
