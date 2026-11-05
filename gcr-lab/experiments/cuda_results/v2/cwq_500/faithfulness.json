@@ -131,5 +131,81 @@
       "faithful_given_grounded": 0.242,
       "faithful_given_hit": 0.26176470588235295
     }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_500\\C2_s43",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.46,
+      "f1": 0.3278556390977444,
+      "any_faithful": 0.306,
+      "faithful_hit": 0.162,
+      "unfaithful_hit": 0.298
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.245,
+      "faithful_given_grounded": 0.245,
+      "faithful_given_hit": 0.27793696275071633
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_500\\C2_s44",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.458,
+      "f1": 0.3195508771929826,
+      "any_faithful": 0.31,
+      "faithful_hit": 0.17,
+      "unfaithful_hit": 0.288
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.248,
+      "faithful_given_grounded": 0.248,
+      "faithful_given_hit": 0.3058823529411765
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_500\\A_multi_s43",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.464,
+      "f1": 0.34150008354218875,
+      "any_faithful": 0.174,
+      "faithful_hit": 0.082,
+      "unfaithful_hit": 0.382
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.141,
+      "faithful_given_grounded": 0.141,
+      "faithful_given_hit": 0.13333333333333333
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_500\\A_multi_s44",
+    "questions": 500,
+    "missing_gold": 0,
+    "candidates": 1000,
+    "question": {
+      "hit": 0.46,
+      "f1": 0.33590008354218875,
+      "any_faithful": 0.166,
+      "faithful_hit": 0.08,
+      "unfaithful_hit": 0.38
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.131,
+      "faithful_given_grounded": 0.131,
+      "faithful_given_hit": 0.12921348314606743
+    }
   }
 ]
