@@ -30,6 +30,8 @@ def main():
     parser.add_argument("--dataset", default="rmanluo/RoG-webqsp")
     parser.add_argument("--adapter", type=Path)
     parser.add_argument("--record-token-trace", action="store_true")
+    parser.add_argument("--completion-paths", type=Path,
+                        help="JSON object mapping question IDs to optional paths to add to the local trie")
     parser.add_argument("--prefill-path", action="store_true", help="Prefill the path header and opening marker")
     parser.add_argument("--model-revision", default="ec16a9e8c15e5792629e9405a42cea1562076b4e")
     parser.add_argument("--dataset-revision", default="c0632533135a06f8c5d536b420deec5fcb5c58f3")
@@ -47,6 +49,8 @@ def main():
         parser.error("start/limit must be nonnegative; k/hops must be positive")
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required; install the CUDA PyTorch wheel first")
+    if args.completion_paths and args.graph != "multi":
+        parser.error("--completion-paths requires --graph multi")
     args.output.mkdir(parents=True, exist_ok=True)
     if any(args.output.iterdir()):
         raise FileExistsError(f"Use a fresh output directory: {args.output}")
@@ -70,6 +74,10 @@ def main():
     dataset = dataset.select(range(args.start, end))
     if not len(dataset):
         raise ValueError("Selected dataset is empty")
+    additions = (json.loads(args.completion_paths.read_text(encoding="utf-8"))
+                 if args.completion_paths else None)
+    if additions is not None and set(additions) != set(dataset["id"]):
+        raise ValueError("Completion path IDs must match the selected split and question range")
     manifest = {
         "args": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
         "model_revision": model_revision, "dataset_revision": data_revision,
@@ -112,6 +120,14 @@ def main():
     answer_metrics = []
     with (args.output / "predictions.jsonl").open("w", encoding="utf-8") as out:
         for i, sample in enumerate(dataset):
+            extra = additions[sample["id"]] if additions is not None else []
+            audit_graph, audit_hops = sample["graph"], args.hops
+            if extra:
+                from src import multi_relation_graph
+                local = multi_relation_graph.build_graph(sample["graph"])
+                sample["paths"] = list(multi_relation_graph.dfs(local, sample["q_entity"], args.hops)) + extra
+                audit_graph = sample["graph"] + [edge for path in extra for edge in path]
+                audit_hops = max(args.hops, max(map(len, extra)))
             result = prediction(sample, [], builder, model)
             if result is not None and args.record_token_trace:
                 result['generation_details'] = model.last_generation_details
@@ -127,8 +143,10 @@ def main():
                           "ground_truth_paths": [], "error": "no_trie" if no_trie else "no_prediction"}
             elif isinstance(result["prediction"], str):
                 result["prediction"] = [result["prediction"]]
-            result["path_audit"] = [audit_prediction(text, sample["graph"],
-                                                     sample["q_entity"], args.hops,
+            if additions is not None:
+                result["completion_paths"] = len(extra)
+            result["path_audit"] = [audit_prediction(text, audit_graph,
+                                                     sample["q_entity"], audit_hops,
                                                      reverse=args.graph != "directed")
                                     for text in result["prediction"]]
             audits.extend(result["path_audit"])

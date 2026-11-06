@@ -50,13 +50,16 @@ def mask(question, entities):
 
 
 class RelationModel:
-    def __init__(self, rel):
+    def __init__(self, rel, train_files=None, sparql_train='data/hf/cwq_sparql_train.parquet'):
         t0 = time.time()
         entities = {}
-        for f in CWQ_TRAIN:
+        for f in CWQ_TRAIN if train_files is None else train_files:
             for row in pq.read_table(f, columns=['id', 'q_entity']).to_pylist():
                 entities[row['id']] = row['q_entity'] or []
-        t = pq.read_table('data/hf/cwq_sparql_train.parquet', columns=['ID', 'question', 'sparql']).to_pydict()
+        table = pq.read_table(sparql_train, columns=['ID', 'question', 'sparql'])
+        if train_files is not None:
+            table = table.filter(np.array([i in entities for i in table['ID'].to_pylist()]))
+        t = table.to_pydict()
         self.vec = TfidfVectorizer(stop_words='english', sublinear_tf=True, min_df=2, ngram_range=(1, 2))
         X = self.vec.fit_transform(mask(q, entities.get(i, [])) for i, q in zip(t['ID'], t['question']))
         index, rows, cols, freq = {}, [], [], collections.Counter()

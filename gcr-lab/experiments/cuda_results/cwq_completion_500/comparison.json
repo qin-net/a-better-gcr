@@ -1,0 +1,113 @@
+{
+  "threshold": 0.12748244104116635,
+  "revisions": {
+    "cwq": "b0f6275586286312c4e99ef4b0adc65463c91f8e",
+    "webqsp": "c0632533135a06f8c5d536b420deec5fcb5c58f3",
+    "sparql_train": "e0c1669689906cf154315f2347b7f8a081ec49c8"
+  },
+  "runs": {
+    "local": {
+      "groups": {
+        "all": {
+          "n": 500,
+          "hit": 231,
+          "gained": 0,
+          "lost": 0
+        },
+        "gap": {
+          "n": 111,
+          "hit": 0,
+          "gained": 0,
+          "lost": 0
+        },
+        "non_gap": {
+          "n": 389,
+          "hit": 231,
+          "gained": 0,
+          "lost": 0
+        }
+      },
+      "preparation_seconds": 0,
+      "decode_seconds": 672.8028888999979,
+      "path_audit": {
+        "generated_candidates": 1000,
+        "valid_candidates": 1000
+      },
+      "answer_metrics": {
+        "hit": 0.462,
+        "f1": 0.32668421052631585,
+        "precision": 0.346,
+        "recall": 0.3746098577892696
+      }
+    },
+    "always": {
+      "groups": {
+        "all": {
+          "n": 500,
+          "hit": 236,
+          "gained": 5,
+          "lost": 0
+        },
+        "gap": {
+          "n": 111,
+          "hit": 4,
+          "gained": 4,
+          "lost": 0
+        },
+        "non_gap": {
+          "n": 389,
+          "hit": 232,
+          "gained": 1,
+          "lost": 0
+        }
+      },
+      "preparation_seconds": 25.15020420007204,
+      "decode_seconds": 668.8113664999983,
+      "path_audit": {
+        "generated_candidates": 1000,
+        "valid_candidates": 1000
+      },
+      "answer_metrics": {
+        "hit": 0.472,
+        "f1": 0.3321175438596493,
+        "precision": 0.352,
+        "recall": 0.3807765244559363
+      }
+    },
+    "gated": {
+      "groups": {
+        "all": {
+          "n": 500,
+          "hit": 233,
+          "gained": 2,
+          "lost": 0
+        },
+        "gap": {
+          "n": 111,
+          "hit": 1,
+          "gained": 1,
+          "lost": 0
+        },
+        "non_gap": {
+          "n": 389,
+          "hit": 232,
+          "gained": 1,
+          "lost": 0
+        }
+      },
+      "preparation_seconds": 9.49598039999546,
+      "decode_seconds": 669.1038894000012,
+      "path_audit": {
+        "generated_candidates": 1000,
+        "valid_candidates": 1000
+      },
+      "answer_metrics": {
+        "hit": 0.466,
+        "f1": 0.3278508771929825,
+        "precision": 0.348,
+        "recall": 0.375443191122603
+      }
+    }
+  },
+  "gated_count": 175
+}
