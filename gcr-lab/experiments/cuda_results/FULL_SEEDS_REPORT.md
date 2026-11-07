@@ -260,3 +260,4 @@ seed 44      faithful_strict_hit   +1.8 [ +0.2,  +3.6]  p=0.041
 3v3 pooled   faithful_strict_hit   +1.8 [ +0.2,  +3.5]  p=0.032
 ```
 
+- [2026-11-08 04:34:40] All done, 0 failures
