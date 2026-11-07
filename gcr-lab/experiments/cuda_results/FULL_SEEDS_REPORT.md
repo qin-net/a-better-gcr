@@ -128,3 +128,27 @@ seed 43      faithful_strict_hit   +2.4 [ +0.6,  +4.1]  p=0.0081
 2v2 pooled   faithful_strict_hit   +2.4 [ +0.7,  +4.0]  p=0.0042
 ```
 
+- [2026-11-07 16:50:51] Starting webqsp/A_multi_s44
+- [2026-11-07 17:27:37] Completed webqsp/A_multi_s44
+```
+run             n    hit     f1  f.hit f.strict unf.hit  faith
+C2           1628  0.693  0.420  0.611    0.619   0.082  0.602
+A_multi      1628  0.695  0.427  0.592    0.595   0.103  0.569
+C2_s43       1628  0.691  0.420  0.612    0.620   0.079  0.604
+A_multi_s43  1628  0.694  0.426  0.593    0.596   0.101  0.566
+C2_s44       1628  0.696  0.426  0.614    0.620   0.082  0.608
+A_multi_s44  1628  0.695  0.426  0.592    0.595   0.103  0.571
+```
+
+```
+C2 - A_multi, webqsp_1628, 1628 questions; points, 95% CI and sign-flip p over seed questions
+seed 42      hit                   -0.2 [ -1.7,  +1.3]  p=0.88
+seed 42      faithful_strict_hit   +2.3 [ +0.7,  +4.0]  p=0.0072
+seed 43      hit                   -0.3 [ -1.9,  +1.2]  p=0.75
+seed 43      faithful_strict_hit   +2.4 [ +0.6,  +4.1]  p=0.0081
+seed 44      hit                   +0.1 [ -1.4,  +1.6]  p=0.94
+seed 44      faithful_strict_hit   +2.6 [ +0.9,  +4.3]  p=0.0021
+3v3 pooled   hit                   -0.1 [ -1.6,  +1.3]  p=0.89
+3v3 pooled   faithful_strict_hit   +2.4 [ +0.8,  +4.1]  p=0.0024
+```
+
