@@ -180,3 +180,18 @@ seed 42      hit                   -0.9 [ -2.5,  +0.7]  p=0.31
 seed 42      faithful_strict_hit   +2.0 [ +0.4,  +3.7]  p=0.026
 ```
 
+- [2026-11-07 23:13:00] Starting cwq/C2_s43
+- [2026-11-08 00:31:09] Completed cwq/C2_s43
+```
+run             n    hit     f1  f.hit f.strict unf.hit  faith
+C2           3531  0.378  0.267  0.174    0.312   0.204  0.335
+A_multi      3531  0.387  0.276  0.116    0.292   0.272  0.239
+C2_s43       3531  0.379  0.268  0.173    0.311   0.206  0.328
+```
+
+```
+C2 - A_multi, cwq_3531, 3531 questions; points, 95% CI and sign-flip p over seed questions
+seed 42      hit                   -0.9 [ -2.5,  +0.7]  p=0.31
+seed 42      faithful_strict_hit   +2.0 [ +0.4,  +3.7]  p=0.026
+```
+
