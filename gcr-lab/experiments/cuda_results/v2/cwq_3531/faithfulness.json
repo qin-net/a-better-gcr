@@ -1,0 +1,23 @@
+[
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_3531\\C2",
+    "questions": 3531,
+    "missing_gold": 0,
+    "candidates": 7062,
+    "question": {
+      "hit": 0.378363069951855,
+      "f1": 0.26668508518575407,
+      "any_faithful": 0.4001699235344095,
+      "faithful_hit": 0.17417162276975362,
+      "faithful_strict_hit": 0.3115264797507788,
+      "unfaithful_hit": 0.2041914471821014,
+      "shortcut_hit": 0.0
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.3348909657320872,
+      "faithful_given_grounded": 0.3348909657320872,
+      "faithful_given_hit": 0.3721286370597244
+    }
+  }
+]

@@ -152,3 +152,17 @@ seed 44      faithful_strict_hit   +2.6 [ +0.9,  +4.3]  p=0.0021
 3v3 pooled   faithful_strict_hit   +2.4 [ +0.8,  +4.1]  p=0.0024
 ```
 
+## 2026-11-07 20:15:58 开始，GPU：NVIDIA GeForce RTX 4060 Laptop GPU，commit：156612d
+- 命令：`graph-constrained-reasoning/workflow/run_full_seeds.py --push`
+
+- [2026-11-07 20:15:59] Skipping completed webqsp_1628/C2_s43
+- [2026-11-07 20:15:59] Skipping completed webqsp_1628/A_multi_s43
+- [2026-11-07 20:15:59] Skipping completed webqsp_1628/C2_s44
+- [2026-11-07 20:15:59] Skipping completed webqsp_1628/A_multi_s44
+- [2026-11-07 20:15:59] Starting cwq/C2
+- [2026-11-07 20:41:10] Completed cwq/C2
+```
+run             n    hit     f1  f.hit f.strict unf.hit  faith
+C2           3531  0.378  0.267  0.174    0.312   0.204  0.335
+```
+
