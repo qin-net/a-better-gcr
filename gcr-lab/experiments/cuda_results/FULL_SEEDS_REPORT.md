@@ -80,3 +80,6 @@ seed 43      faithful_strict_hit   +2.4 [ +0.6,  +4.1]  p=0.0081
 2v2 pooled   faithful_strict_hit   +2.4 [ +0.7,  +4.0]  p=0.0042
 ```
 
+- [2026-11-07 14:17:57] Push failed: fatal: unable to access 'https://github.com/qin-net/a-better-gcr.git/': Recv failure: Connection was aborted
+- [2026-11-07 14:17:57] Starting cwq/C2
+- [2026-11-07 14:18:03] FAILED cwq/C2: exit code 1; kept as C2_failed
