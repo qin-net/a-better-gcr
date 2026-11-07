@@ -1,0 +1,94 @@
+Traceback (most recent call last):
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connectionpool.py", line 779, in urlopen
+    self._prepare_proxy(conn)
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1074, in _prepare_proxy
+    conn.connect()
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connection.py", line 878, in connect
+    wrapped_socket, is_verified = _ssl_wrap_socket_and_match_hostname(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connection.py", line 1080, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+               ^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\util\ssl_.py", line 437, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\util\ssl_.py", line 481, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\qizn\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 517, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\qizn\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1075, in _create
+    self.do_handshake()
+  File "C:\Users\qizn\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1346, in do_handshake
+    self._sslobj.do_handshake()
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\util\util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connectionpool.py", line 779, in urlopen
+    self._prepare_proxy(conn)
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1074, in _prepare_proxy
+    conn.connect()
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connection.py", line 878, in connect
+    wrapped_socket, is_verified = _ssl_wrap_socket_and_match_hostname(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\connection.py", line 1080, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+               ^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\util\ssl_.py", line 437, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\urllib3\util\ssl_.py", line 481, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\qizn\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 517, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\qizn\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1075, in _create
+    self.do_handshake()
+  File "C:\Users\qizn\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1346, in do_handshake
+    self._sslobj.do_handshake()
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\desktop\vs\a-better-gcr\graph-constrained-reasoning\workflow\cuda_baseline.py", line 179, in <module>
+    main()
+  File "D:\desktop\vs\a-better-gcr\graph-constrained-reasoning\workflow\cuda_baseline.py", line 62, in main
+    else api.model_info(args.model_path, revision=args.model_revision).sha)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\huggingface_hub\hf_api.py", line 2660, in model_info
+    r = get_session().get(path, headers=headers, timeout=timeout, params=params)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\requests\sessions.py", line 671, in get
+    return self.request("GET", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\desktop\vs\a-better-gcr\.venv\Lib\site-packages\requests\adapters.py", line 711, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: (ProtocolError('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)), '(Request ID: b1c064ae-f9bc-4218-9785-272c94e1934a)')
