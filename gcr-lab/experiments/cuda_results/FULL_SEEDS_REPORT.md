@@ -236,3 +236,27 @@ seed 43      faithful_strict_hit   +1.6 [ +0.1,  +3.3]  p=0.056
 2v2 pooled   faithful_strict_hit   +1.8 [ +0.2,  +3.5]  p=0.034
 ```
 
+- [2026-11-08 03:12:07] Starting cwq/A_multi_s44
+- [2026-11-08 04:34:28] Completed cwq/A_multi_s44
+```
+run             n    hit     f1  f.hit f.strict unf.hit  faith
+C2           3531  0.378  0.267  0.174    0.312   0.204  0.335
+A_multi      3531  0.387  0.276  0.116    0.292   0.272  0.239
+C2_s43       3531  0.379  0.268  0.173    0.311   0.206  0.328
+A_multi_s43  3531  0.390  0.279  0.118    0.294   0.272  0.240
+C2_s44       3531  0.379  0.267  0.180    0.313   0.199  0.332
+A_multi_s44  3531  0.390  0.278  0.116    0.295   0.274  0.236
+```
+
+```
+C2 - A_multi, cwq_3531, 3531 questions; points, 95% CI and sign-flip p over seed questions
+seed 42      hit                   -0.9 [ -2.5,  +0.7]  p=0.31
+seed 42      faithful_strict_hit   +2.0 [ +0.4,  +3.7]  p=0.026
+seed 43      hit                   -1.1 [ -2.7,  +0.5]  p=0.22
+seed 43      faithful_strict_hit   +1.6 [ +0.1,  +3.3]  p=0.056
+seed 44      hit                   -1.1 [ -2.5,  +0.3]  p=0.16
+seed 44      faithful_strict_hit   +1.8 [ +0.2,  +3.6]  p=0.041
+3v3 pooled   hit                   -1.0 [ -2.4,  +0.5]  p=0.19
+3v3 pooled   faithful_strict_hit   +1.8 [ +0.2,  +3.5]  p=0.032
+```
+
