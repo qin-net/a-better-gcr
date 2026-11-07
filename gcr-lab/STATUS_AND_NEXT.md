@@ -1,4 +1,21 @@
-# 进度与下一步（2026-11-05 更新）
+# 进度与下一步（2026-11-06 更新）
+
+**2026-11-06 结论（Mac 端，详见 `experiments/FINDINGS.md` X）**：v2 过夜全部跑完、0 失败。按种子题重算后：
+
+| C2 对 A_multi | Hit | 修正忠实命中 | 状态 |
+|---|---|---|---|
+| CWQ 前 500，3 seed | +0.1 点 | +2.7 点，p=0.14 | 未确认 |
+| WebQSP 前 500，3 seed | −2.8 点，p=0.035 | −0.7 点，p=0.62 | Hit 可能有代价 |
+| WebQSP 全量，仅 seed 42 | −0.2 点 | +2.3 点，p=0.007 | 只有一个 seed |
+
+稳健的只有“再训一轮”（A_multi 对 official）。训练路径修复的效果还没有确认，缺全量多 seed 的数据。
+
+修正判据已固定：`score_faithfulness.py` 新增 `faithful_strict_hit`，读 `eval/faithfulness_criterion.json`，文件
+缺失时报错；评测脚本的报告也输出这一列。**论文表格用这一列**，`faithful_hit` 只为复现旧结果。
+
+下一步见文末 §7。
+
+以下保留 11-04/11-05 的原文作记录。
 
 **2026-11-05 结论（过夜评测，详见 `experiments/FINDINGS.md` Q）**：主假设在 CWQ 上成立。
 SPARQL 约束训练（C/D）让忠实命中从 7.4% 升到 20%（p<1e-12），Hit 不变；代价是 WebQSP 的 Hit
@@ -139,3 +156,19 @@ git pull
 - 若 C2 在 WebQSP 不再掉点：C2 在两个数据集全量、3 seed 上出论文主表；E2（≤3 跳）与 3 跳解码。
 - 若仍掉点：试 A+C2 混合训练集。
 - 方向感知的忠实度指标（现在的 `faithful` 不检查方向和顺序）。
+
+## 7. 11-06 之后的下一步
+
+GPU 上跑全量多 seed，判断 C2 的效果。一条命令：`graph-constrained-reasoning/workflow/run_full_seeds.py --push`，
+说明见 `train_variants/FULL_SEEDS.md`。adapter 都已训好，不用重新训练，耗时按 v2 实测估算：
+
+1. **WebQSP 全量**：C2 和 A_multi 的 seed 43、44，4 组约 3.4 小时。回答 p=0.007 能否复现、Hit 是否真的掉。
+2. **CWQ 全量 3,531 题**：C2 和 A_multi 的 3 个 seed，6 组约 12 小时。种子从 195 增到 344，按 √n 估算 CI
+   半宽约 ±2.7 点，和 +2.7 点的增益同量级，结果可能仍在显著性边缘，要预先接受这一点。
+
+分析一律按种子题，用 3 对 3 合并（`x_cluster_tests.py`）；`run_v2_night.py` 报告里的逐题 McNemar 在 CWQ 上偏乐观。
+
+结果怎么读：
+
+- 两边增益都复现、WebQSP Hit 不掉：训练路径修复进论文主表。
+- 不复现：论文主线改为训练缺口的存在性证据（E/H/N）、指标缺陷（S）加推理侧补全（T–V）。

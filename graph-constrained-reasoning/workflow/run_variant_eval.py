@@ -118,7 +118,8 @@ def evaluate(pilot, output, datasets=('webqsp', 'cwq'), limit=100, only=None,
         if done:
             try:
                 gold = score_faithfulness.load_gold(score_faithfulness.DEFAULT_GOLD)
-                scores[dataset] = [score_faithfulness.score_run(d, gold) for d in done]
+                canon, shortcut = score_faithfulness.load_criterion(score_faithfulness.DEFAULT_CRITERION)
+                scores[dataset] = [score_faithfulness.score_run(d, gold, canon, shortcut) for d in done]
             except Exception as e:  # predictions are kept; scoring can be redone offline
                 if not keep_going:
                     raise
@@ -131,11 +132,11 @@ def evaluate(pilot, output, datasets=('webqsp', 'cwq'), limit=100, only=None,
 
 
 def table(results):
-    lines = [f"{'run':12s} {'n':>4s} {'hit':>6s} {'f1':>6s} {'f.hit':>6s} {'unf.hit':>7s} {'faith':>6s}"]
+    lines = [f"{'run':12s} {'n':>4s} {'hit':>6s} {'f1':>6s} {'f.hit':>6s} {'f.strict':>8s} {'unf.hit':>7s} {'faith':>6s}"]
     for r in results:
         q, c = r['question'], r['candidate']
         lines.append(f"{Path(r['run']).name:12s} {r['questions']:4d} {q['hit']:6.3f} {q['f1']:6.3f} "
-                     f"{q['faithful_hit']:6.3f} {q['unfaithful_hit']:7.3f} {c['faithful']:6.3f}")
+                     f"{q['faithful_hit']:6.3f} {q['faithful_strict_hit']:8.3f} {q['unfaithful_hit']:7.3f} {c['faithful']:6.3f}")
     return '\n'.join(lines)
 
 

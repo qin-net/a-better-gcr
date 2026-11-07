@@ -93,6 +93,7 @@ def train(name, event):
 def paired(dataset, limit, names):
     """McNemar of every completed v2 run against the 11-04 A_multi and C (or this night's A_multi)."""
     gold = score_faithfulness.load_gold(score_faithfulness.DEFAULT_GOLD)
+    canon, shortcut = score_faithfulness.load_criterion(score_faithfulness.DEFAULT_CRITERION)
     bases = [('11-04 A_multi', REFERENCE / f'{dataset}_{limit}' / 'A_multi'),
              ('11-04 C', REFERENCE / f'{dataset}_{limit}' / 'C'),
              ('A_multi', OUT / f'{dataset}_{limit}' / 'A_multi')]
@@ -100,16 +101,16 @@ def paired(dataset, limit, names):
     for label, base_dir in bases:
         if not run_variant_eval.complete(base_dir):
             continue
-        base = score_faithfulness.score_questions(base_dir, gold)[1]
+        base = score_faithfulness.score_questions(base_dir, gold, canon, shortcut)[1]
         lines.append(f'paired vs {label} (gained/lost, exact McNemar p)')
         for name in names:
             run = OUT / f'{dataset}_{limit}' / name
             if run == base_dir or not run_variant_eval.complete(run):
                 continue
-            other = score_faithfulness.score_questions(run, gold)[1]
+            other = score_faithfulness.score_questions(run, gold, canon, shortcut)[1]
             lines.append(f'{name:12s}' + ''.join(
                 '  {}: +{}/-{} p={:.2g}'.format(key, *score_faithfulness.mcnemar(base, other, key))
-                for key in ('hit', 'faithful_hit')))
+                for key in ('hit', 'faithful_hit', 'faithful_strict_hit')))
     return '\n'.join(lines)
 
 
