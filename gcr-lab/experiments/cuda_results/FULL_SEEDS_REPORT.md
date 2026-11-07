@@ -95,3 +95,6 @@ seed 43      faithful_strict_hit   +2.4 [ +0.6,  +4.1]  p=0.0081
 - [2026-11-07 14:18:22] Push failed: fatal: unable to access 'https://github.com/qin-net/a-better-gcr.git/': Recv failure: Connection was aborted
 - [2026-11-07 14:18:22] Starting cwq/C2_s44
 - [2026-11-07 14:18:28] FAILED cwq/C2_s44: exit code 1; kept as C2_s44_failed
+- [2026-11-07 14:18:28] Push failed: fatal: unable to access 'https://github.com/qin-net/a-better-gcr.git/': Recv failure: Connection was aborted
+- [2026-11-07 14:18:28] Starting cwq/A_multi_s44
+- [2026-11-07 14:18:34] FAILED cwq/A_multi_s44: exit code 1; kept as A_multi_s44_failed
