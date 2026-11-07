@@ -1,24 +1,5 @@
 [
   {
-    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\webqsp_1628\\A_multi",
-    "questions": 1628,
-    "missing_gold": 0,
-    "candidates": 3256,
-    "question": {
-      "hit": 0.6953316953316954,
-      "f1": 0.4268128723459336,
-      "any_faithful": 0.6492628992628993,
-      "faithful_hit": 0.5921375921375921,
-      "unfaithful_hit": 0.10319410319410319
-    },
-    "candidate": {
-      "grounded": 1.0,
-      "faithful": 0.5694103194103194,
-      "faithful_given_grounded": 0.5694103194103194,
-      "faithful_given_hit": 0.8184836745987825
-    }
-  },
-  {
     "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\webqsp_1628\\C2",
     "questions": 1628,
     "missing_gold": 0,
@@ -28,13 +9,57 @@
       "f1": 0.4203694968807296,
       "any_faithful": 0.6934889434889435,
       "faithful_hit": 0.6111793611793612,
-      "unfaithful_hit": 0.08230958230958231
+      "faithful_strict_hit": 0.6185503685503686,
+      "unfaithful_hit": 0.08230958230958231,
+      "shortcut_hit": 0.0
     },
     "candidate": {
       "grounded": 1.0,
       "faithful": 0.6016584766584766,
       "faithful_given_grounded": 0.6016584766584766,
       "faithful_given_hit": 0.8511837655016911
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\webqsp_1628\\A_multi",
+    "questions": 1628,
+    "missing_gold": 0,
+    "candidates": 3256,
+    "question": {
+      "hit": 0.6953316953316954,
+      "f1": 0.4268128723459336,
+      "any_faithful": 0.6492628992628993,
+      "faithful_hit": 0.5921375921375921,
+      "faithful_strict_hit": 0.5952088452088452,
+      "unfaithful_hit": 0.10319410319410319,
+      "shortcut_hit": 0.0
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.5694103194103194,
+      "faithful_given_grounded": 0.5694103194103194,
+      "faithful_given_hit": 0.8184836745987825
+    }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\webqsp_1628\\C2_s43",
+    "questions": 1628,
+    "missing_gold": 0,
+    "candidates": 3256,
+    "question": {
+      "hit": 0.691031941031941,
+      "f1": 0.4196720976394245,
+      "any_faithful": 0.6941031941031941,
+      "faithful_hit": 0.6124078624078624,
+      "faithful_strict_hit": 0.6197788697788698,
+      "unfaithful_hit": 0.07862407862407862,
+      "shortcut_hit": 0.0
+    },
+    "candidate": {
+      "grounded": 1.0,
+      "faithful": 0.6038083538083538,
+      "faithful_given_grounded": 0.6038083538083538,
+      "faithful_given_hit": 0.851602023608769
     }
   }
 ]
