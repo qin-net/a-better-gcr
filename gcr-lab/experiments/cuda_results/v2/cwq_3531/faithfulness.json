@@ -61,5 +61,26 @@
       "faithful_given_grounded": 0.3276692155196828,
       "faithful_given_hit": 0.36717171717171715
     }
+  },
+  {
+    "run": "D:\\desktop\\vs\\a-better-gcr\\gcr-lab\\experiments\\cuda_results\\v2\\cwq_3531\\A_multi_s43",
+    "questions": 3531,
+    "missing_gold": 0,
+    "candidates": 7062,
+    "question": {
+      "hit": 0.3899745114698386,
+      "f1": 0.2787191200828032,
+      "any_faithful": 0.2721608609459077,
+      "faithful_hit": 0.11753044463324837,
+      "faithful_strict_hit": 0.29425092041914475,
+      "unfaithful_hit": 0.2724440668365902,
+      "shortcut_hit": 0.0
+    },
+    "candidate": {
+      "grounded": 0.9997167941093175,
+      "faithful": 0.24015859529878222,
+      "faithful_given_grounded": 0.24022662889518415,
+      "faithful_given_hit": 0.252970297029703
+    }
   }
 ]
