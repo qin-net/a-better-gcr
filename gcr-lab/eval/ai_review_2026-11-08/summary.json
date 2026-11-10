@@ -1,0 +1,1994 @@
+{
+  "review_type": "AI单轮诊断审阅，非人工，非全题库效果估计",
+  "n_cases": 80,
+  "n_candidates": 320,
+  "counts": {
+    "cwq_3531/auto_fail": {
+      "未通过": 38,
+      "不确定": 1,
+      "通过": 1
+    },
+    "cwq_3531/auto_pass": {
+      "未通过": 34,
+      "通过": 6
+    },
+    "cwq_3531/both_fail": {
+      "均未通过": 10
+    },
+    "cwq_3531/both_pass": {
+      "均未通过": 9,
+      "均通过": 1
+    },
+    "cwq_3531/gain": {
+      "均未通过": 6,
+      "改善": 2,
+      "不确定": 1,
+      "均通过": 1
+    },
+    "cwq_3531/loss": {
+      "均未通过": 10
+    },
+    "webqsp_1628/auto_fail": {
+      "未通过": 36,
+      "不确定": 3,
+      "通过": 1
+    },
+    "webqsp_1628/auto_pass": {
+      "通过": 28,
+      "未通过": 12
+    },
+    "webqsp_1628/both_fail": {
+      "均未通过": 9,
+      "不确定": 1
+    },
+    "webqsp_1628/both_pass": {
+      "均通过": 7,
+      "均未通过": 3
+    },
+    "webqsp_1628/gain": {
+      "均未通过": 3,
+      "改善": 6,
+      "不确定": 1
+    },
+    "webqsp_1628/loss": {
+      "退步": 5,
+      "均未通过": 3,
+      "不确定": 1,
+      "均通过": 1
+    }
+  },
+  "cases": [
+    {
+      "case_id": "R001",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1238",
+      "seed": 42,
+      "stratum": "loss",
+      "outcome": "退步",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R002",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-176",
+      "seed": 43,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R003",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-1077_83f43b9f4c2707c689543b33efe1d28d",
+      "seed": 42,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R004",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1701",
+      "seed": 43,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "终点答案不一致",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R005",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1020",
+      "seed": 42,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R006",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-2904_99f2c6359f65cb116bf380f01af55d6b",
+      "seed": 43,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R007",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-1000_1d3a86f839023bb35d439f56a673dbe6",
+      "seed": 42,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R008",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1946",
+      "seed": 44,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持"
+      ]
+    },
+    {
+      "case_id": "R009",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1454",
+      "seed": 42,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R010",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-147",
+      "seed": 43,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺条件",
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R011",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-406",
+      "seed": 44,
+      "stratum": "both_fail",
+      "outcome": "不确定",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "不确定",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "疑似标注问题",
+        "终点答案不一致",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R012",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-1392_6fb4733f48e98e385b85d625ad84354f",
+      "seed": 44,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R013",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-25_2055b38029bf8f2a0c593d3a189d3efe",
+      "seed": 44,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R014",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-733",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "改善",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R015",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-169",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "改善",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "无明显问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R016",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-2429_3f76d491e90682cc29e3de2546e1f9c5",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R017",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-626_33a613e654ecc62313ec81072238d012",
+      "seed": 43,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "终点答案不一致",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R018",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1198",
+      "seed": 42,
+      "stratum": "both_pass",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R019",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-175",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "不确定",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "不确定",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R020",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-1677_c006ead7cde93a8aff111388eaa455c1",
+      "seed": 43,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R021",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-2738_3af38b10b0d7b98adee1efab161eb884",
+      "seed": 44,
+      "stratum": "both_pass",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R022",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1595",
+      "seed": 43,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R023",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-537_56a1aae80ac17f9e8aeb74074911648f",
+      "seed": 43,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R024",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-124_33b7d857b3156faee9cb6c16741d8b6a",
+      "seed": 44,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R025",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1562",
+      "seed": 43,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R026",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-269",
+      "seed": 42,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R027",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-2007",
+      "seed": 43,
+      "stratum": "both_pass",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R028",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-54_bfb16d956224f4ff7df39609f2a84210",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "改善",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题",
+        "终点答案不一致",
+        "缺条件",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R029",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-2023_7d2edee5ce98d6b13dfd25714bb3a6b8",
+      "seed": 43,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R030",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1161",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "改善",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题",
+        "终点答案不一致",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R031",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-1379_8b1ff0551fb22f1d4e54d33d3656b8e8",
+      "seed": 44,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件",
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R032",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-677",
+      "seed": 42,
+      "stratum": "loss",
+      "outcome": "退步",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题",
+        "类别枚举",
+        "终点答案不一致"
+      ]
+    },
+    {
+      "case_id": "R033",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1821",
+      "seed": 43,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R034",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-1001_6bcfac70e63efec42212159c644a593a",
+      "seed": 44,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R035",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-60_80dd8836edf74bbdc4c00996958a8ded",
+      "seed": 44,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R036",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-1923_e11655219d44e3762e0510f2bde1c077",
+      "seed": 44,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R037",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1857",
+      "seed": 44,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件",
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R038",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-93",
+      "seed": 42,
+      "stratum": "loss",
+      "outcome": "不确定",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "不确定",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "无明显问题",
+        "终点答案不一致",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R039",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-513_64fc62dc06d16e612aafb00889d4ada1",
+      "seed": 43,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "类别枚举",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R040",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-3251_01081659a60a9424dd32f0873cd17c3c",
+      "seed": 44,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "类别枚举",
+        "缺条件",
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R041",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-1180_67a1ad5ed99567cb4bd3d139b1baf51d",
+      "seed": 43,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "终点答案不一致",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R042",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-1762_ea65a065bc9b8f5eda6ea8c0716c84b8",
+      "seed": 42,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R043",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1392",
+      "seed": 42,
+      "stratum": "both_pass",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R044",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1586",
+      "seed": 44,
+      "stratum": "loss",
+      "outcome": "退步",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "方向错误",
+        "无明显问题",
+        "终点答案不一致",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R045",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-477",
+      "seed": 44,
+      "stratum": "loss",
+      "outcome": "退步",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题",
+        "终点答案不一致",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R046",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-1528_f8024d5f486967b395064aa07aa52d6e",
+      "seed": 42,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R047",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1326",
+      "seed": 43,
+      "stratum": "loss",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "无明显问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R048",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-261_ebd851342dda23e06e53d0a187391dff",
+      "seed": 43,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R049",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-567_236474b013912ee47c903558d5e2a002",
+      "seed": 44,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R050",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-3226_bcef0b0a75a7bf2e05f1d95a5459d279",
+      "seed": 42,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R051",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-2215_823b40b980df8fa2c68cdd1bd7972ce1",
+      "seed": 43,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "终点答案不一致",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R052",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-2319_5d066fa0939d708dab176e819188e151",
+      "seed": 43,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R053",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1634",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R054",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-3515_9afcfd20978b860a6f4aafc6344a7be1",
+      "seed": 43,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "类别枚举",
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R055",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1205",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "改善",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题",
+        "终点答案不一致"
+      ]
+    },
+    {
+      "case_id": "R056",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1316",
+      "seed": 43,
+      "stratum": "loss",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R057",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1311",
+      "seed": 44,
+      "stratum": "loss",
+      "outcome": "退步",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "方向错误",
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R058",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1759",
+      "seed": 43,
+      "stratum": "gain",
+      "outcome": "改善",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R059",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-1168_1591d6a0e6cef93c6863edb2eb0e198f",
+      "seed": 44,
+      "stratum": "gain",
+      "outcome": "不确定",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "不确定",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "无明显问题",
+        "缺条件",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R060",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-43_6988da193226944bb48ca59b2115a2b6",
+      "seed": 43,
+      "stratum": "gain",
+      "outcome": "改善",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "无明显问题",
+        "类别枚举"
+      ]
+    },
+    {
+      "case_id": "R061",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-1539_de8059b06640bb0b9cbe51ff95a7589a",
+      "seed": 42,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R062",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-3744_b9bd90569bb7912ec3ea180bf164663c",
+      "seed": 42,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "类别枚举",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R063",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-191_ff568780c076e11c54be8c6879cd8f42",
+      "seed": 43,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "类别枚举",
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R064",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1378",
+      "seed": 44,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "终点答案不一致",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R065",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1963",
+      "seed": 43,
+      "stratum": "gain",
+      "outcome": "改善",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R066",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-2570_db34fd8440052b417b431fca90cfc47c",
+      "seed": 43,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件",
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R067",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1369",
+      "seed": 42,
+      "stratum": "both_pass",
+      "outcome": "均通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R068",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-935",
+      "seed": 42,
+      "stratum": "both_pass",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "无明显问题",
+        "终点答案不一致",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R069",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-99",
+      "seed": 44,
+      "stratum": "both_pass",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "无明显问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R070",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-870",
+      "seed": 43,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "疑似标注问题",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R071",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1925",
+      "seed": 43,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持"
+      ]
+    },
+    {
+      "case_id": "R072",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-750_05337caf83129cca8d39755239932866",
+      "seed": 43,
+      "stratum": "gain",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "无明显问题"
+      ]
+    },
+    {
+      "case_id": "R073",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-2152_92fba37c9723caee68665ad9a5e4a468",
+      "seed": 42,
+      "stratum": "both_pass",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R074",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-1965_fb736bb9923b467c976b7e2b3a3aacac",
+      "seed": 42,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "终点答案不一致",
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R075",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-631",
+      "seed": 42,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R076",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-1083",
+      "seed": 43,
+      "stratum": "both_pass",
+      "outcome": "均通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "通过",
+          "automatic_pass": true
+        },
+        "C2": {
+          "side": "乙",
+          "status": "通过",
+          "automatic_pass": true
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "无明显问题",
+        "终点答案不一致",
+        "证据不足"
+      ]
+    },
+    {
+      "case_id": "R077",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-783_8df6a029e48ff843dee388bf684c1054",
+      "seed": 42,
+      "stratum": "gain",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": true
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R078",
+      "dataset": "cwq_3531",
+      "qid": "WebQTrn-1532_14aa649262f9051efbc371148a6c64a1",
+      "seed": 42,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "类别枚举",
+        "缺比较"
+      ]
+    },
+    {
+      "case_id": "R079",
+      "dataset": "cwq_3531",
+      "qid": "WebQTest-212_828b79d960f806ea9d291b87184103cd",
+      "seed": 43,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "C2": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "A_multi": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "缺条件"
+      ]
+    },
+    {
+      "case_id": "R080",
+      "dataset": "webqsp_1628",
+      "qid": "WebQTest-2000",
+      "seed": 44,
+      "stratum": "both_fail",
+      "outcome": "均未通过",
+      "arms": {
+        "A_multi": {
+          "side": "甲",
+          "status": "未通过",
+          "automatic_pass": false
+        },
+        "C2": {
+          "side": "乙",
+          "status": "未通过",
+          "automatic_pass": false
+        }
+      },
+      "tags": [
+        "事实不支持",
+        "缺条件"
+      ]
+    }
+  ],
+  "key_sha256": "61acc87f5d1d7242f947720b4ac9c3e659ac8a32629f1fee9b7c22237b8b44d2",
+  "label_sha256": "de09b7f251e398d6809db14ebd12244de319e8377b28db2bf2637c52a19f9e16"
+}

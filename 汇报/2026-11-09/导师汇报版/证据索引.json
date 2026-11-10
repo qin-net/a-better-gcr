@@ -1,0 +1,84 @@
+{
+  "1": [
+    {
+      "path": "gcr-lab/experiments/FINDINGS.md",
+      "sha256": "066c11b40ceb368104a424e3dfdd4b95c9a09d4a49d0f3c627c296084bf1603c"
+    }
+  ],
+  "2": [
+    {
+      "path": "gcr-lab/experiments/cuda_results/FULL_SEEDS_REPORT.md",
+      "sha256": "8501f7f9ee55d2e0438671c91e22fe4fdb3fcfe02cd2afa0d254fbca12f1dc14"
+    }
+  ],
+  "3": [
+    {
+      "path": "AI审阅报告_2026-11-08.md",
+      "sha256": "5efc1f6a25420634cc7b87ca34f321920ab9c40cef90a20ca9b27a353342111d"
+    },
+    {
+      "path": "gcr-lab/STATUS_AND_NEXT.md",
+      "sha256": "ef4f1d5713ddb479af54558734aece3ddde9fc78d49226527519bac99c4e207a"
+    }
+  ],
+  "4": [
+    {
+      "path": "2410.13080v2.pdf",
+      "sha256": "51f106cbe81617c649207dc87fe48cd601bab4f0cdc64574cc9f14be012262f2"
+    }
+  ],
+  "5": [
+    {
+      "path": "汇报/2026-11-09/原论文与我们的方法对照.md",
+      "sha256": "fedb653f651a629c04d620ca3fd99eebbc349ef341456d765843164790a051fa"
+    }
+  ],
+  "6": [
+    {
+      "path": "gcr-lab/train_variants/build_v2.py",
+      "sha256": "7eb7cb9c8cf5c6ee57310246b7bc7644afb873c61c43ce8d0b8ae3836dc83e85"
+    },
+    {
+      "path": "gcr-lab/train_variants/data/v2_stats.json",
+      "sha256": "7675aba2fd64df0f14c33ce84f2de75b489bfc44bd79188b4ba0560af030d909"
+    },
+    {
+      "path": "graph-constrained-reasoning/src/multi_relation_graph.py",
+      "sha256": "6dd71523deab5239741771ffee1200fb6c4be27cacce069e5f649e902e37e74b"
+    }
+  ],
+  "7": [
+    {
+      "path": "graph-constrained-reasoning/workflow/score_faithfulness.py",
+      "sha256": "1f146fab2dfc4619031fce090baed46a8c409f47236d95ad355cae6df4eb5d40"
+    },
+    {
+      "path": "graph-constrained-reasoning/workflow/run_full_seeds.py",
+      "sha256": "733cb20521ea4e112c962e7de7e796c01f7e9035c970e1b18b979ff91fe3e06f"
+    }
+  ],
+  "8": [
+    {
+      "path": "gcr-lab/experiments/cuda_results/cwq_completion_500/comparison.json",
+      "sha256": "2ae62e8e9ecb7559e15625c4a27316f9efd6df3b2be5306d6aac54cef0ed584c"
+    },
+    {
+      "path": "gcr-lab/experiments/y_completion_eval.py",
+      "sha256": "080b12d2501cfface9b8b075b530bcdfede499074eef2de30606d6f86fd10617"
+    }
+  ],
+  "9": [
+    {
+      "path": "gcr-lab/eval/ai_review_2026-11-08/summary.json",
+      "sha256": "fa39414bb30ef8a280f21741678b0e4e1234e62c8912e18f869a3d170e0b80a8"
+    },
+    {
+      "path": "gcr-lab/eval/ai_review_2026-11-08/judgments.jsonl",
+      "sha256": "de09b7f251e398d6809db14ebd12244de319e8377b28db2bf2637c52a19f9e16"
+    },
+    {
+      "path": "gcr-lab/eval/ai_review_2026-11-08/dataset_anomalies.json",
+      "sha256": "a7b3c21ce5f743d30231e9c8f4de308df90e8d88068562028ce0a17cbd8a8d14"
+    }
+  ]
+}

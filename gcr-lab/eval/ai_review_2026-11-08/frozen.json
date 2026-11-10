@@ -1,0 +1,11 @@
+{
+  "reviewer": "JoyCode / AI单轮初审，非人工、非独立双盲",
+  "frozen_at": "2026-11-08T05:03:13.240263+00:00",
+  "identity_reveal": "本轮80题标签先写完，再读取private/key.json；审阅者此前生成过该题册并知道总体结果。",
+  "scope": "只根据题册中的原始预测、事实和查询；未联网逐一核验现实世界答案。是/否多以给定参考答案判断，遇题面与标注冲突保留不确定。",
+  "files": {
+    "gcr-lab/eval/ai_review_2026-11-08/judgments.jsonl": "de09b7f251e398d6809db14ebd12244de319e8377b28db2bf2637c52a19f9e16",
+    "gcr-lab/out/blind_review_2026-11-08/题册.md": "ee3b8325c28684e6e98676f16b78b5e9f82e758d697624b5388c930435cc785d",
+    "gcr-lab/eval/BLIND_REVIEW.md": "17dd937893d89baf0bd4ce02256e539051db35a3dc1ef95e54ac74c2704e719a"
+  }
+}

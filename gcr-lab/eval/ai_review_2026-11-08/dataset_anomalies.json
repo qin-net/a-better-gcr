@@ -1,0 +1,49 @@
+[
+  {
+    "case_id": "R024",
+    "source": "gcr-lab/data/hf/cwq_eval/test-00001-of-00003-2fa9a898639e7d1e.parquet",
+    "source_sha256": "ff426b58074eecba719350630623d80a8ad8aebf2ac87b641557eeb7073b623b",
+    "row": {
+      "id": "WebQTrn-124_33b7d857b3156faee9cb6c16741d8b6a",
+      "question": "Who was the cinematographer in a movie directed by Angelina Jolie?",
+      "answer": [
+        "By the Sea",
+        "In the Land of Blood and Honey"
+      ],
+      "a_entity": [
+        "By the Sea",
+        "In the Land of Blood and Honey"
+      ]
+    }
+  },
+  {
+    "case_id": "R031",
+    "source": "gcr-lab/data/hf/cwq_eval/test-00002-of-00003-c659cd388440c4ae.parquet",
+    "source_sha256": "d9ec63efbc63961f6c690dcfb2e6d61cee799c1755f62ece30c2e55548b5388f",
+    "row": {
+      "id": "WebQTest-1379_8b1ff0551fb22f1d4e54d33d3656b8e8",
+      "question": "What was Franz Liszt's earliest job that led to leading a religious organization?",
+      "answer": [
+        "Drums"
+      ],
+      "a_entity": [
+        "Drums"
+      ]
+    }
+  },
+  {
+    "case_id": "R066",
+    "source": "gcr-lab/data/hf/cwq_eval/test-00002-of-00003-c659cd388440c4ae.parquet",
+    "source_sha256": "d9ec63efbc63961f6c690dcfb2e6d61cee799c1755f62ece30c2e55548b5388f",
+    "row": {
+      "id": "WebQTrn-2570_db34fd8440052b417b431fca90cfc47c",
+      "question": "What United States Presidents who served during WWII ended their governmental position after 18 January 1940?",
+      "answer": [
+        "Glen Dale"
+      ],
+      "a_entity": [
+        "Glen Dale"
+      ]
+    }
+  }
+]

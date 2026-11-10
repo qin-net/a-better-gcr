@@ -1,0 +1,43 @@
+{
+  "sources": [
+    {
+      "path": "gcr-lab/experiments/FINDINGS.md",
+      "sha256": "066c11b40ceb368104a424e3dfdd4b95c9a09d4a49d0f3c627c296084bf1603c"
+    },
+    {
+      "path": "gcr-lab/experiments/cuda_results/FULL_SEEDS_REPORT.md",
+      "sha256": "8501f7f9ee55d2e0438671c91e22fe4fdb3fcfe02cd2afa0d254fbca12f1dc14"
+    },
+    {
+      "path": "gcr-lab/STATUS_AND_NEXT.md",
+      "sha256": "ef4f1d5713ddb479af54558734aece3ddde9fc78d49226527519bac99c4e207a"
+    },
+    {
+      "path": "AI审阅报告_2026-11-08.md",
+      "sha256": "5efc1f6a25420634cc7b87ca34f321920ab9c40cef90a20ca9b27a353342111d"
+    },
+    {
+      "path": "gcr-lab/eval/ai_review_2026-11-08/summary.json",
+      "sha256": "fa39414bb30ef8a280f21741678b0e4e1234e62c8912e18f869a3d170e0b80a8"
+    },
+    {
+      "path": "gcr-lab/eval/ai_review_2026-11-08/judgments.jsonl",
+      "sha256": "de09b7f251e398d6809db14ebd12244de319e8377b28db2bf2637c52a19f9e16"
+    },
+    {
+      "path": "gcr-lab/eval/ai_review_2026-11-08/frozen.json",
+      "sha256": "8d137bc769aa8142bbb41190a7ef83317b42cd3af8ac0c78bfd245d5f60a384d"
+    },
+    {
+      "path": "gcr-lab/eval/ai_review_2026-11-08/dataset_anomalies.json",
+      "sha256": "a7b3c21ce5f743d30231e9c8f4de308df90e8d88068562028ce0a17cbd8a8d14"
+    },
+    {
+      "path": "gcr-lab/eval/ai_review_2026-11-08/AI逐题详解.md",
+      "sha256": "a457361c087571ca4a364371effc777757b89efd6bf988fd7458d2c0735071eb"
+    }
+  ],
+  "as_of": "2026-11-08",
+  "presentation_date": "2026-11-09",
+  "external_research": false
+}
